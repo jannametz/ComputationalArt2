@@ -1,0 +1,10 @@
+[
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'ComputationalArt2'
+		},
+		#path : FSAbsolutePath [
+			'src'
+		]
+	}
+]
