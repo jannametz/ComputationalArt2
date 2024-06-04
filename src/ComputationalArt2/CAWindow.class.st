@@ -8,8 +8,8 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:51'
+	#category : #creation,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:20'
 }
 CAWindow class >> create [
 
@@ -23,7 +23,6 @@ CAWindow class >> create [
 	menuHeight := CAWindow uiValue: #uiMenuHeight.
 	
 	buttonColum := self createButtonsColumn: window.
-	(buttonColum submorphNamed: CAMoveTool toolName) displayPressed.
 	contextMenuRow := self createItemRow.
 	menuRow := self createItemRow.
 	canvas := CACanvasContainer newWith: window.
@@ -49,7 +48,7 @@ CAWindow class >> create [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #creation,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:45'
 }
 CAWindow class >> createButtonsColumn: aCAWindow [
@@ -73,7 +72,7 @@ CAWindow class >> createButtonsColumn: aCAWindow [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #creation,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/3/2024 23:46'
 }
 CAWindow class >> createItemRow [
@@ -93,23 +92,23 @@ CAWindow class >> createItemRow [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:15'
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:41'
 }
 CAWindow class >> uiIconButtonPadding [
-	^4.
+	^5.
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:33'
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:39'
 }
 CAWindow class >> uiIconButtonWidth [
-	^20.
+	^24.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:52'
 }
 CAWindow class >> uiMenuHeight [
@@ -117,31 +116,31 @@ CAWindow class >> uiMenuHeight [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:18'
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:33'
 }
 CAWindow class >> uiToolButtonsCellInsets [
-	^2.
+	^0.
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:14'
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:33'
 }
 CAWindow class >> uiToolButtonsInsets [
-	^2.
+	^0.
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:34'
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:40'
 }
 CAWindow class >> uiToolsWidth [
-	^40.
+	^38.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:29'
 }
 CAWindow class >> uiValue: aSymbol [
@@ -150,7 +149,7 @@ CAWindow class >> uiValue: aSymbol [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:29'
 }
 CAWindow class >> uiValueDirect: aSymbol [

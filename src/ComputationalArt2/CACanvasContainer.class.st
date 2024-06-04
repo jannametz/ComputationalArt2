@@ -12,7 +12,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #'instance creation',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 12:58'
 }
 CACanvasContainer class >> newWith: aCAWindow [

@@ -8,10 +8,21 @@ Class {
 		'paddingRight',
 		'paddingBottom',
 		'paddingLeft',
-		'displayIcon'
+		'displayIcon',
+		'pressed',
+		'hover',
+		'active'
 	],
 	#category : #ComputationalArt2
 }
+
+{
+	#category : #Color,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:15'
+}
+CAIconButton class >> activeColor [
+	^Color r: 0.0 g: 0.0 b: 0.0 alpha: 0.2.
+]
 
 {
 	#category : #Color,
@@ -23,14 +34,14 @@ CAIconButton class >> defaultColor [
 
 {
 	#category : #Color,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:40'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:21'
 }
 CAIconButton class >> hoverColor [
-	^Color r: 0.0 g: 0.0 b: 0.0 alpha: 0.1.
+	^Color r: 0.0 g: 0.0 b: 0.0 alpha: 0.05.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'instance creation',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:39'
 }
 CAIconButton class >> newWith: aForm iconWidth: width padding: padding [
@@ -54,7 +65,7 @@ CAIconButton class >> pressedColor [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 13:10'
 }
 CAIconButton >> baseForm: aForm [
@@ -63,7 +74,15 @@ CAIconButton >> baseForm: aForm [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:16'
+}
+CAIconButton >> displayActive [
+	self color: self class activeColor.
+]
+
+{
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:41'
 }
 CAIconButton >> displayDefault [
@@ -71,7 +90,7 @@ CAIconButton >> displayDefault [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:42'
 }
 CAIconButton >> displayHover [
@@ -79,7 +98,7 @@ CAIconButton >> displayHover [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 13:34'
 }
 CAIconButton >> displayImageMorph: anImageMorph [
@@ -88,7 +107,7 @@ CAIconButton >> displayImageMorph: anImageMorph [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:41'
 }
 CAIconButton >> displayPressed [
@@ -96,7 +115,7 @@ CAIconButton >> displayPressed [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 13:25'
 }
 CAIconButton >> drawOn: aCanvas [
@@ -107,7 +126,23 @@ CAIconButton >> drawOn: aCanvas [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:24'
+}
+CAIconButton >> handlesMouseDown: anEvent [
+	^true.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:07'
+}
+CAIconButton >> handlesMouseOver: anEvent [
+	^true.
+]
+
+{
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 12:14'
 }
 CAIconButton >> iconHeightPixel [
@@ -117,7 +152,7 @@ CAIconButton >> iconHeightPixel [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 11:41'
 }
 CAIconButton >> iconWidth: aNumber [
@@ -125,7 +160,7 @@ CAIconButton >> iconWidth: aNumber [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 12:14'
 }
 CAIconButton >> iconWidthPixel [
@@ -134,6 +169,54 @@ CAIconButton >> iconWidthPixel [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:18'
+}
+CAIconButton >> initialize [
+	super initialize.
+	active := false.
+	pressed := false.
+	hover := false.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:24'
+}
+CAIconButton >> mouseDown: anEvent [
+	pressed := true.
+	self updateColor.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:10'
+}
+CAIconButton >> mouseEnter: anEvent [
+	hover := true.
+	self updateColor.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:11'
+}
+CAIconButton >> mouseLeave: anEvent [
+	hover := false.
+	pressed := false.
+	self updateColor.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:10'
+}
+CAIconButton >> mouseUp: anEvent [
+	pressed := false.
+	self updateColor.
+]
+
+{
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 11:13'
 }
 CAIconButton >> padding: pad [
@@ -141,7 +224,7 @@ CAIconButton >> padding: pad [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 11:48'
 }
 CAIconButton >> paddingBottomPixels [
@@ -149,7 +232,7 @@ CAIconButton >> paddingBottomPixels [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 11:48'
 }
 CAIconButton >> paddingLeftPixels [
@@ -157,7 +240,7 @@ CAIconButton >> paddingLeftPixels [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 11:49'
 }
 CAIconButton >> paddingRightPixels [
@@ -165,7 +248,7 @@ CAIconButton >> paddingRightPixels [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 10:23'
 }
 CAIconButton >> paddingTop: top right: right bottom: bottom left: left [
@@ -176,7 +259,7 @@ CAIconButton >> paddingTop: top right: right bottom: bottom left: left [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 11:49'
 }
 CAIconButton >> paddingTopPixels [
@@ -184,7 +267,24 @@ CAIconButton >> paddingTopPixels [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:25'
+}
+CAIconButton >> updateColor [
+	pressed ifTrue: [
+		self displayPressed.]
+	ifFalse: [
+		hover ifTrue: [
+			self displayHover.]
+		ifFalse: [
+			active ifTrue: [self displayActive.]
+			ifFalse: [self displayDefault.].
+			].
+		].
+]
+
+{
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 13:19'
 }
 CAIconButton >> updateDisplayIcon [
@@ -193,7 +293,7 @@ CAIconButton >> updateDisplayIcon [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 13:35'
 }
 CAIconButton >> updateSize [
