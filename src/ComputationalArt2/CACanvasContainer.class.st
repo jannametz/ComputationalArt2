@@ -2,11 +2,12 @@ Class {
 	#name : #CACanvasContainer,
 	#superclass : #PasteUpMorph,
 	#instVars : [
-		'form',
+		'caCanvas',
 		'imageMorph',
 		'canvasOffset',
 		'caWindow',
-		'canvasScale'
+		'canvasScale',
+		'form'
 	],
 	#category : #ComputationalArt2
 }
@@ -109,7 +110,7 @@ CACanvasContainer >> handlesMouseWheel: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 00:29'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:26'
 }
 CACanvasContainer >> initialize [
 	super initialize.
@@ -118,22 +119,26 @@ CACanvasContainer >> initialize [
 	self minimumExtent: 128@128.
 	canvasOffset := 0@0.
 	canvasScale := 1.0.
-	form := Form extent: 100@100 depth: 32.
-	form fillColor: Color green.
+	
+	caCanvas := CACanvas new: 100 height: 100 depth: 32.
+	caCanvas create.
+	
+	caCanvas fillColor: Color green.
+	
 	0 to: 99 do: [ :y |
 		0 to: 99 do: [ :x |
-			form colorAt: x@y put: Color random.
+			caCanvas drawPointAt: x@y color: Color red.
 			].
 		].
 	
-	imageMorph := ImageMorph new image: form.
+	imageMorph := ImageMorph new image: caCanvas form.
 	imageMorph position: canvasOffset.
 	self addMorph: imageMorph.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 13:34'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:21'
 }
 CACanvasContainer >> mouseDown: anEvent [
 	caWindow activeTool handleMouseDown: anEvent on: self.
@@ -165,10 +170,10 @@ CACanvasContainer >> mouseWheel: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 16:35'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:02'
 }
 CACanvasContainer >> updateForm [
 	| scaledForm |
-	scaledForm := form magnifyBy: canvasScale.
+	scaledForm := caCanvas form magnifyBy: canvasScale.
 	imageMorph image: scaledForm.
 ]
