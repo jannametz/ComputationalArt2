@@ -1,0 +1,174 @@
+Class {
+	#name : #CACanvasContainer,
+	#superclass : #PasteUpMorph,
+	#instVars : [
+		'form',
+		'imageMorph',
+		'canvasOffset',
+		'caWindow',
+		'canvasScale'
+	],
+	#category : #ComputationalArt2
+}
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 12:58'
+}
+CACanvasContainer class >> newWith: aCAWindow [
+	^CACanvasContainer new caWindow: aCAWindow.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 12:55'
+}
+CACanvasContainer >> caWindow: aCAWindow [
+	caWindow := aCAWindow.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 13:57'
+}
+CACanvasContainer >> canvasOffset [
+	^canvasOffset.
+	
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 14:23'
+}
+CACanvasContainer >> canvasOffset: aPoint [
+	canvasOffset := aPoint.
+	imageMorph position: self position + canvasOffset.
+	
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 16:33'
+}
+CACanvasContainer >> canvasOffset: aPoint scale: aNumber [
+	self canvasScale: aNumber.
+	self canvasOffset: aPoint.
+	
+	
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 15:00'
+}
+CACanvasContainer >> canvasScale [
+	^canvasScale
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 16:09'
+}
+CACanvasContainer >> canvasScale: aNumber [
+	canvasScale := self clampScale: aNumber.
+	self updateForm.
+	
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 16:04'
+}
+CACanvasContainer >> clampScale: aNumber [
+	^ aNumber min: 16.0 max: 0.125.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 11:48'
+}
+CACanvasContainer >> handlesMouseDown: anEvent [
+	^true.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 13:14'
+}
+CACanvasContainer >> handlesMouseMove: anEvent [
+	^true.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 14:43'
+}
+CACanvasContainer >> handlesMouseWheel: anEvent [
+	^true.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 00:29'
+}
+CACanvasContainer >> initialize [
+	super initialize.
+	self color: Color transparent.
+	self borderWidth: 1.
+	self minimumExtent: 128@128.
+	canvasOffset := 0@0.
+	canvasScale := 1.0.
+	form := Form extent: 100@100 depth: 32.
+	form fillColor: Color green.
+	0 to: 99 do: [ :y |
+		0 to: 99 do: [ :x |
+			form colorAt: x@y put: Color random.
+			].
+		].
+	
+	imageMorph := ImageMorph new image: form.
+	imageMorph position: canvasOffset.
+	self addMorph: imageMorph.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 13:34'
+}
+CACanvasContainer >> mouseDown: anEvent [
+	caWindow activeTool handleMouseDown: anEvent on: self.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 13:35'
+}
+CACanvasContainer >> mouseMove: anEvent [
+	caWindow activeTool handleMouseMove: anEvent on: self.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 13:32'
+}
+CACanvasContainer >> mouseUp: anEvent [
+	caWindow activeTool handleMouseUp: anEvent on: self.	
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 14:44'
+}
+CACanvasContainer >> mouseWheel: anEvent [
+	caWindow activeTool handleMouseWheel: anEvent on: self.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 16:35'
+}
+CACanvasContainer >> updateForm [
+	| scaledForm |
+	scaledForm := form magnifyBy: canvasScale.
+	imageMorph image: scaledForm.
+]
