@@ -29,6 +29,20 @@ CACanvas class >> new: aWidth height: aHeight depth: aDepth [
 
 {
 	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:42'
+}
+CACanvas >> colorAt: aPosition [
+]
+
+{
+	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:42'
+}
+CACanvas >> colorsFrom: aStartPosition to: anEndPosition [
+]
+
+{
+	#category : #api,
 	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:10'
 }
 CACanvas >> commit [
@@ -94,6 +108,20 @@ CACanvas >> drawPointAt: aPoint color: aColor replace: aFilterColor [
 
 {
 	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:40'
+}
+CACanvas >> drawString: aString at: anUpperLeftCornerPoint [
+]
+
+{
+	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:41'
+}
+CACanvas >> drawString: aString at: anUpperLeftCornerPoint replace: aFilterColor [
+]
+
+{
+	#category : #api,
 	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:26'
 }
 CACanvas >> fillColor: aColor [
@@ -106,6 +134,20 @@ CACanvas >> fillColor: aColor [
 	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:07'
 }
 CACanvas >> fillColor: aColor replace: aFilterColor [
+]
+
+{
+	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:38'
+}
+CACanvas >> fillFrom: aStartPoint to: anEndPoint color: aColor [
+]
+
+{
+	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:38'
+}
+CACanvas >> fillFrom: aStartPoint to: anEndPoint color: aColor replace: aFilterColor [
 ]
 
 {
