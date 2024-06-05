@@ -109,13 +109,15 @@ CACanvasContainer >> handlesMouseWheel: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 00:29'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 14:08'
 }
 CACanvasContainer >> initialize [
 	super initialize.
 	self color: Color transparent.
 	self borderWidth: 1.
 	self minimumExtent: 128@128.
+	self hResizing: #spaceFill.
+	self vResizing: #spaceFill.
 	canvasOffset := 0@0.
 	canvasScale := 1.0.
 	form := Form extent: 100@100 depth: 32.

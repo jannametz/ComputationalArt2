@@ -10,16 +10,16 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:32'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 18:16'
 }
-CATool class >> createToolButton: aCAWindow [
+CATool class >> createToolButton [
 	| button assetLoader form |
 	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
 	form := (assetLoader loadImageMorph: 'assets\img\tools\',self toolName,'.png') form.
 	button := CAIconButton newWith: form
-	iconWidth: (CAWindow uiValueDirect: #uiIconButtonWidth)
-	padding: (CAWindow uiValueDirect: #uiIconButtonPadding).
-	button balloonText: self toolName, ' Tool'.
+	iconWidth: (CAWindow uiIconButtonWidth)
+	padding: (CAWindow uiIconButtonPadding).
+	button balloonText: self toolName.
 	^button.
 ]
 
