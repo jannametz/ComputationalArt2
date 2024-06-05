@@ -5,8 +5,9 @@ Class {
 		'width',
 		'height',
 		'depth',
-		'stableForm',
-		'stagedForm'
+		'stagedCanvas',
+		'stableCanvas',
+		'defaultColor'
 	],
 	#category : #ComputationalArt2
 }
@@ -29,35 +30,74 @@ CACanvas class >> new: aWidth height: aHeight depth: aDepth [
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:42'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:36'
+}
+CACanvas >> clearColor: aColor [
+
+	stagedCanvas form fillWithColor: aColor.
+]
+
+{
+	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:17'
 }
 CACanvas >> colorAt: aPosition [
+
+	^ self form colorAt: aPosition.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:42'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 12:52'
 }
 CACanvas >> colorsFrom: aStartPosition to: anEndPosition [
+
+	| colorsMatrix endX endY startX startY |
+	startX := aStartPosition x.
+	startY := aStartPosition y.
+	endX := anEndPosition x.
+	endY := anEndPosition y.
+
+	colorsMatrix := Array new: endX - startX + 1.
+    
+	 (startX to: endX) do: [ :x |
+		| column |
+		column := Array new: endY - startY + 1.
+	        
+		(startY to: endY) do: [ :y |
+	            | color |
+	            color := self colorAt: x@y.
+	            column at: (y - startY + 1) put: color.
+	        ].
+	        
+	        colorsMatrix at: (x - startX + 1) put: column.
+		].
+	
+	^ colorsMatrix.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:10'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:31'
 }
 CACanvas >> commit [
 	
-	stableForm := stagedForm deepCopy.
+	stableCanvas setForm: stagedCanvas form deepCopy.
 ]
 
 {
 	#category : #'initialize-release',
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:11'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:35'
 }
 CACanvas >> create [
 	
-	stableForm := FormCanvas extent: (self width)@(self height) depth: (self depth).
-	stagedForm := stableForm deepCopy.
+	stableCanvas := FormCanvas extent:
+	(self width)@(self height)depth: (self depth).
+	stagedCanvas := FormCanvas extent:
+	(self width)@(self height) depth: (self depth).
+	
+	self fillColor: defaultColor.
+	self commit.
 ]
 
 {
@@ -70,97 +110,72 @@ CACanvas >> depth [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 00:55'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:25'
 }
 CACanvas >> depth: aDepth [
-	depth := aDepth
+	depth := aDepth.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:06'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:40'
 }
-CACanvas >> drawLineFrom: aStartPoint to: anEndPoint color: aColor [
+CACanvas >> drawLine: aStartPoint to: anEndPoint width: aLineWidth color: aColor [
+
+	stagedCanvas line: aStartPoint to: anEndPoint
+		width: defaultColor color: aColor.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:06'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:39'
 }
-CACanvas >> drawLineFrom: aStartPoint to: anEndPoint color: aColor replace: aFilterColor [
+CACanvas >> drawPoint: aPoint color: aColor [
+
+	stagedCanvas point: aPoint color: aColor.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:16'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:36'
 }
-CACanvas >> drawPointAt: aPoint color: aColor [
+CACanvas >> drawRect: aRectangle color: aColor [
 
-	stagedForm point: aPoint color: aColor.
+	stagedCanvas fillRectangle: aRectangle color: aColor.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:06'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:36'
 }
-CACanvas >> drawPointAt: aPoint color: aColor replace: aFilterColor [
+CACanvas >> drawRect: aStartPoint to: anEndPoint color: aColor [
+
+	stagedCanvas fillRectangle:
+		(Rectangle origin: aStartPoint corner: anEndPoint) color: aColor.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:40'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:33'
 }
-CACanvas >> drawString: aString at: anUpperLeftCornerPoint [
-]
+CACanvas >> drawString: aString at: anUpperLeftCornerPoint color: aColor [
 
-{
-	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:41'
-}
-CACanvas >> drawString: aString at: anUpperLeftCornerPoint replace: aFilterColor [
-]
-
-{
-	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:26'
-}
-CACanvas >> fillColor: aColor [
-	
-	stagedForm fillColor: aColor.
-]
-
-{
-	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:07'
-}
-CACanvas >> fillColor: aColor replace: aFilterColor [
-]
-
-{
-	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:38'
-}
-CACanvas >> fillFrom: aStartPoint to: anEndPoint color: aColor [
-]
-
-{
-	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:38'
-}
-CACanvas >> fillFrom: aStartPoint to: anEndPoint color: aColor replace: aFilterColor [
+	stagedCanvas drawString: aString
+		from: 1 to: aString size at: anUpperLeftCornerPoint
+		font: nil color: aColor.
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:19'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:32'
 }
 CACanvas >> form [
-	^ stagedForm form.
+	^ stagedCanvas form.
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 00:55'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:22'
 }
 CACanvas >> height [
 	^ height
@@ -168,26 +183,29 @@ CACanvas >> height [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 00:55'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:22'
 }
 CACanvas >> height: aHeight [
 	height := aHeight
+	"apply height change to canvas"
 ]
 
 {
 	#category : #'initialize-release',
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:11'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:34'
 }
 CACanvas >> initialize [
+	
+	defaultColor := Color gray.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:25'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:32'
 }
 CACanvas >> reset [
-	
-	stagedForm := stableForm deepCopy.
+
+	stagedCanvas setForm: stableCanvas form deepCopy.
 ]
 
 {
@@ -200,8 +218,9 @@ CACanvas >> width [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 00:56'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:23'
 }
 CACanvas >> width: aWidth [
 	width := aWidth
+	"apply width change to canvas"
 ]

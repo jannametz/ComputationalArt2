@@ -2,14 +2,15 @@ Class {
 	#name : #CAWindow,
 	#superclass : #SystemWindow,
 	#instVars : [
-		'activeTool'
+		'activeTool',
+		'canvasContainer'
 	],
 	#category : #ComputationalArt2
 }
 
 {
 	#category : #creation,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:20'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 12:42'
 }
 CAWindow class >> create [
 
@@ -44,7 +45,10 @@ CAWindow class >> create [
  	window addMorph: canvas fullFrame:
 		(LayoutFrame fractions: (0.0@0.0 corner: 0.6@1) offsets: (toolsWidth@menuHeight extent: (-1 * toolsWidth)@(-1 * (menuHeight + contextMenuHeight)))).
 	
+	window canvasContainer: canvas.
+	
 	window openInWorld.
+	^ window
 ]
 
 {
@@ -171,6 +175,22 @@ CAWindow >> activeTool [
 }
 CAWindow >> activeTool: aTool [
 	activeTool := aTool.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 12:38'
+}
+CAWindow >> canvasContainer [
+	^ canvasContainer
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 12:38'
+}
+CAWindow >> canvasContainer: aCanvasContainer [
+	canvasContainer := aCanvasContainer.
 ]
 
 {

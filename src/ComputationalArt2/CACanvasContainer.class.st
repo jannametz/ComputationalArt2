@@ -30,6 +30,14 @@ CACanvasContainer >> caWindow: aCAWindow [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 12:43'
+}
+CACanvasContainer >> canvas [
+	^ caCanvas
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 13:57'
 }
 CACanvasContainer >> canvasOffset [
