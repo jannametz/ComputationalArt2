@@ -87,7 +87,7 @@ CACanvas >> commit [
 
 {
 	#category : #'initialize-release',
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:35'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:49'
 }
 CACanvas >> create [
 	
@@ -96,7 +96,7 @@ CACanvas >> create [
 	stagedCanvas := FormCanvas extent:
 	(self width)@(self height) depth: (self depth).
 	
-	self fillColor: defaultColor.
+	self clearColor: defaultColor.
 	self commit.
 ]
 
@@ -192,10 +192,10 @@ CACanvas >> height: aHeight [
 
 {
 	#category : #'initialize-release',
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:34'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:49'
 }
 CACanvas >> initialize [
-	
+
 	defaultColor := Color gray.
 ]
 

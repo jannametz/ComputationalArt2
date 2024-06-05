@@ -118,7 +118,7 @@ CACanvasContainer >> handlesMouseWheel: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 01:26'
+	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:50'
 }
 CACanvasContainer >> initialize [
 	super initialize.
@@ -131,11 +131,11 @@ CACanvasContainer >> initialize [
 	caCanvas := CACanvas new: 100 height: 100 depth: 32.
 	caCanvas create.
 	
-	caCanvas fillColor: Color green.
+	caCanvas clearColor: Color green.
 	
 	0 to: 99 do: [ :y |
 		0 to: 99 do: [ :x |
-			caCanvas drawPointAt: x@y color: Color red.
+			caCanvas drawPoint: x@y color: Color random.
 			].
 		].
 	
