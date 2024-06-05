@@ -10,40 +10,46 @@ Class {
 
 {
 	#category : #creation,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 12:42'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 19:12'
 }
 CAWindow class >> create [
 
-	| window canvas buttonColum contextMenuRow contextMenuHeight menuHeight textField menuRow toolsWidth |	
+	| window canvas menuHeight textField menuRow buttonContainer canvasToolVBox simButtons simVBox |	
 	window := CAWindow labelled: 'Computational Art'.
 	window activeTool: CAMoveTool new.
-	window minimumExtent: 480@480.
+	window minimumExtent: 700@400.
 	
-	toolsWidth := CAWindow uiValue: #uiToolsWidth.
-	contextMenuHeight := CAWindow uiValue: #uiMenuHeight.
-	menuHeight := CAWindow uiValue: #uiMenuHeight.
+	menuHeight := (self uiIconButtonPadding * 2 + self uiIconButtonWidth)  * Display uiScaleFactor.
 	
-	buttonColum := self createButtonsColumn: window.
-	contextMenuRow := self createItemRow.
-	menuRow := self createItemRow.
+	buttonContainer := CAToolContainer create: window.
 	canvas := CACanvasContainer newWith: window.
-	textField := PluggableTextMorph on: nil text: nil accept: nil.
-	textField minimumExtent: 50@50.
+	canvasToolVBox := self createVBox.
+	canvasToolVBox addMorph: buttonContainer.
+	canvasToolVBox addMorph: (CAVSpace new dpiHeight: CAWindow uiSpacing).
+	canvasToolVBox addMorph: canvas.
+	canvasToolVBox minimumExtent: 300@300.
 	
-	window addMorph: textField fullFrame:
-		(LayoutFrame fractions: (0.6@0.0 corner: 1.0@1) offsets: (0@menuHeight extent: 0@(-1 * (menuHeight + contextMenuHeight)))).
-		
-	window addMorph: contextMenuRow fullFrame:
-		(LayoutFrame fractions: (0.0@1.0 corner: 1.0@1.0) offsets: (0@(-1 * contextMenuHeight) extent: 0@contextMenuHeight)).
+	menuRow := self createMenu.
+	
+	textField := PluggableTextMorph on: nil text: nil accept: nil.
+	textField vResizing: #spaceFill.
+	textField hResizing: #spaceFill.
+	
+	simButtons := self createSimulationsButtons.
+	simVBox := self createVBox.
+	simVBox addMorph: simButtons.
+	simVBox addMorph: (CAVSpace new dpiHeight: CAWindow uiSpacing).
+	simVBox addMorph: textField.
+	simVBox minimumExtent: 200@300.
+	
+	window addMorph: simVBox fullFrame:
+		(LayoutFrame fractions: (0.6@0.0 corner: 1.0@1) offsets: (0@menuHeight extent: 0@(-1 * (menuHeight)))).
 		
 	window addMorph: menuRow fullFrame:
 		(LayoutFrame fractions: (0.0@0.0 corner: 1.0@0.0) offsets: (0@0 extent: 0@menuHeight)).
 		
-	window addMorph: buttonColum fullFrame:
-		(LayoutFrame fractions: (0.0@0.0 corner: 0.0@1.0) offsets: (0@menuHeight extent: toolsWidth@(-1 * (menuHeight + contextMenuHeight)))).
-		
- 	window addMorph: canvas fullFrame:
-		(LayoutFrame fractions: (0.0@0.0 corner: 0.6@1) offsets: (toolsWidth@menuHeight extent: (-1 * toolsWidth)@(-1 * (menuHeight + contextMenuHeight)))).
+ 	window addMorph: canvasToolVBox fullFrame:
+		(LayoutFrame fractions: (0.0@0.0 corner: 0.6@1) offsets: (0@menuHeight extent: 0@(-1 * (menuHeight)))).
 	
 	window canvasContainer: canvas.
 	
@@ -52,113 +58,123 @@ CAWindow class >> create [
 ]
 
 {
-	#category : #creation,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:45'
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 14:51'
 }
-CAWindow class >> createButtonsColumn: aCAWindow [
-	| buttonCol |
-	buttonCol := RectangleMorph new.
-	buttonCol layoutPolicy: TableLayout new;
-		vResizing: #spaceFill;
+CAWindow class >> createHBox [
+	| hbox |
+	hbox := Morph new.
+	hbox extent: 0@0;
 		hResizing: #spaceFill;
-		listDirection: #topToBottom;
-		wrapCentering: #center;
-		layoutInset: (CAWindow uiValue: #uiToolButtonsInsets);
-		cellInset: (CAWindow uiValue: #uiToolButtonsCellInsets);
-		color: (Color r: 0.0 g: 0.0 b: 0.0 alpha: 0.1);
-		borderWidth: 0.
-	
-	{CAPenTool. CAMoveTool.} do: [:Tool | | b |
-		b := Tool createToolButton: aCAWindow.
-		b name: Tool toolName.
-		buttonCol addMorph: b.].
-	^buttonCol
-]
-
-{
-	#category : #creation,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/3/2024 23:46'
-}
-CAWindow class >> createItemRow [
-	| buttonRow |
-	buttonRow := RectangleMorph new.
-	buttonRow layoutPolicy: TableLayout new;
-		vResizing: #spaceFill;
-		hResizing: #spaceFill;
-		cellPositioning: #center;
+		vResizing: #shrinkWrap;
+		color: Color transparent;
 		listDirection: #leftToRight;
+		borderWidth: 0;
 		layoutInset: 0;
 		cellInset: 0;
-		color: (Color r: 0.0 g: 0.0 b: 0.0 alpha: 0.1);
-		borderWidth: 0.
-	^buttonRow.
+		layoutPolicy: TableLayout new.
+	^hbox.
 	
 ]
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:41'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 14:18'
+}
+CAWindow class >> createHSpaceFiller [
+	| morph |
+	morph := Morph new.
+	morph color: Color transparent.
+	morph extent: 0@0.
+	morph hResizing: #spaceFill.
+	morph vResizing: #rigid.
+	^morph.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 18:38'
+}
+CAWindow class >> createMenu [
+	| assetLoader hBox |
+	hBox := CAWindow createHBox.
+	hBox color: CAWindow uiDarkerBackground.
+	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
+	{CAExportImageTool. CAImportImageTool. CAExportTool. CAImportTool. } do: [:Tool | | button |
+		button := Tool createToolButton.
+		hBox addMorph: button.
+		(Tool toolName = 'Reset' or: Tool toolName = 'Start') ifTrue:[
+			hBox addMorph: CAWindow createHSpaceFiller.].].
+	^hBox.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 18:21'
+}
+CAWindow class >> createSimulationsButtons [
+	| hBox assetLoader |
+	hBox := CAWindow createHBox.
+	hBox color: CAWindow uiDarkerBackground.
+	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
+	{CAResetTool. CAPauseTool. CAStartTool. CAStepTool} do: [:Tool | | button |
+		button := Tool createToolButton.
+		hBox addMorph: button.
+		(Tool toolName = 'Reset' or: Tool toolName = 'Start') ifTrue:[
+			hBox addMorph: CAWindow createHSpaceFiller.].].
+	^hBox.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 14:52'
+}
+CAWindow class >> createVBox [
+	| vbox |
+	vbox := Morph new.
+	vbox extent: 0@0;
+		hResizing: #shrinkWrap;
+		vResizing: #spaceFill;
+		color: Color transparent;
+		listDirection: #topToBottom;
+		borderWidth: 0;
+		layoutInset: 0;
+		cellInset: 0;
+		layoutPolicy: TableLayout new.
+	^vbox.
+	
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 17:30'
+}
+CAWindow class >> uiDarkerBackground [
+	^Color r: 0.0 g: 0.0 b: 0.0 alpha: 0.1.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 18:55'
 }
 CAWindow class >> uiIconButtonPadding [
-	^5.
+	^6.
 ]
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:39'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 18:55'
 }
 CAWindow class >> uiIconButtonWidth [
-	^24.
+	^16.
 ]
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:52'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 16:17'
 }
-CAWindow class >> uiMenuHeight [
-	^32.
-]
-
-{
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:33'
-}
-CAWindow class >> uiToolButtonsCellInsets [
-	^0.
-]
-
-{
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:33'
-}
-CAWindow class >> uiToolButtonsInsets [
-	^0.
-]
-
-{
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:40'
-}
-CAWindow class >> uiToolsWidth [
-	^38.
-]
-
-{
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:29'
-}
-CAWindow class >> uiValue: aSymbol [
-	^(self perform: aSymbol) * Display uiScaleFactor.
-	
-]
-
-{
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:29'
-}
-CAWindow class >> uiValueDirect: aSymbol [
-	^(self perform: aSymbol).
-	
+CAWindow class >> uiSpacing [
+	^4.
 ]
 
 {
