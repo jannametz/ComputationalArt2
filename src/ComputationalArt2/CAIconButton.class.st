@@ -44,18 +44,40 @@ CAIconButton class >> hoverColor [
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:39'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 00:13'
 }
-CAIconButton class >> newWith: aForm iconWidth: width padding: padding [
+CAIconButton class >> newFeatureButton: aFeatureClass onClick: aBlock [
+	^self newFrom: aFeatureClass buttonForm
+		onClick: aBlock
+		ballonText: aFeatureClass featureName.
+]
+
+{
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 00:08'
+}
+CAIconButton class >> newFrom: aForm onClick: aBlock ballonText: aString [
 	| button |
 	button := CAIconButton new.
 	button color: self defaultColor.
 	button displayImageMorph:ImageMorph new.
-	button iconWidth: width.
-	button padding: padding.
+	button iconWidth: CAWindow uiIconButtonWidth.
+	button padding: CAWindow uiIconButtonPadding.
 	button baseForm: aForm.
+	button onClick: aBlock.
+	button balloonText: aString.
 	button updateSize.
 	^button.
+]
+
+{
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 00:10'
+}
+CAIconButton class >> newToolButton: aCAToolClass conainer: aCAToolContainer [
+	^self newFrom: aCAToolClass buttonForm
+		onClick: [aCAToolContainer setActiveClass: aCAToolClass.]
+		ballonText: aCAToolClass toolName.
 ]
 
 {

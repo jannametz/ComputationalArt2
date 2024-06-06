@@ -14,13 +14,10 @@ CACanvasTool class >> buttonForm [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:36'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 00:05'
 }
 CACanvasTool class >> createToolButton: aCAToolContainer [
-	| button |
-	button := CAToolButton newWithClass: self conainer: aCAToolContainer iconWidth: CAWindow uiIconButtonWidth padding: CAWindow uiIconButtonPadding.
-	button balloonText: self toolName.
-	^button.
+	^CAIconButton newToolButton: self conainer: aCAToolContainer.
 ]
 
 {
