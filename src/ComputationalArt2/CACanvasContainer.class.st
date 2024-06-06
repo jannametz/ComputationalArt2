@@ -94,6 +94,14 @@ CACanvasContainer >> clampScale: aNumber [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 16:03'
+}
+CACanvasContainer >> getPixelPosition: aPoint [
+	^(((aPoint - self position) - canvasOffset) / canvasScale) floor.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 11:48'
 }
 CACanvasContainer >> handlesMouseDown: anEvent [

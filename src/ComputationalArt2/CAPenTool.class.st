@@ -1,13 +1,13 @@
 Class {
 	#name : #CAPenTool,
-	#superclass : #CATool,
+	#superclass : #CACanvasTool,
 	#category : #ComputationalArt2
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/3/2024 19:01'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:46'
 }
-CAPenTool class >> toolName [
+CAPenTool class >> featureName [
 	^'Pen'.
 ]

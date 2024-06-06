@@ -1,20 +1,20 @@
 Class {
 	#name : #CAMoveTool,
-	#superclass : #CATool,
+	#superclass : #CACanvasTool,
 	#category : #ComputationalArt2
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/3/2024 18:57'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:46'
 }
-CAMoveTool class >> toolName [
+CAMoveTool class >> featureName [
 	^'Move'.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 14:11'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 16:03'
 }
 CAMoveTool >> handleMouseMove: anEvent on: aCACanvasContainer [
 	| delta |

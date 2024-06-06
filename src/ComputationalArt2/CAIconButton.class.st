@@ -11,7 +11,9 @@ Class {
 		'displayIcon',
 		'pressed',
 		'hover',
-		'active'
+		'active',
+		'mouseDownPosition',
+		'onClickBlock'
 	],
 	#category : #ComputationalArt2
 }
@@ -65,6 +67,15 @@ CAIconButton class >> pressedColor [
 ]
 
 {
+	#category : #click,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:21'
+}
+CAIconButton >> active: aBoolean [
+	active := aBoolean.
+	self updateColor.
+]
+
+{
 	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 13:10'
 }
@@ -74,27 +85,10 @@ CAIconButton >> baseForm: aForm [
 ]
 
 {
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:16'
+	#category : #click,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 13:25'
 }
-CAIconButton >> displayActive [
-	self color: self class activeColor.
-]
-
-{
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:41'
-}
-CAIconButton >> displayDefault [
-	self color: self class defaultColor.
-]
-
-{
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:42'
-}
-CAIconButton >> displayHover [
-	self color: self class hoverColor.
+CAIconButton >> beforeOnClick [
 ]
 
 {
@@ -104,14 +98,6 @@ CAIconButton >> displayHover [
 CAIconButton >> displayImageMorph: anImageMorph [
 	displayIcon := anImageMorph.
 	self addMorph: displayIcon.
-]
-
-{
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 14:41'
-}
-CAIconButton >> displayPressed [
-	self color: self class pressedColor.
 ]
 
 {
@@ -168,28 +154,30 @@ CAIconButton >> iconWidthPixel [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:18'
+	#category : #initialization,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 16:20'
 }
 CAIconButton >> initialize [
 	super initialize.
 	active := false.
 	pressed := false.
 	hover := false.
+	onClickBlock := [].
 ]
 
 {
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:24'
+	#category : #click,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:24'
 }
 CAIconButton >> mouseDown: anEvent [
 	pressed := true.
 	self updateColor.
+	mouseDownPosition := anEvent position.
 ]
 
 {
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:10'
+	#category : #click,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:19'
 }
 CAIconButton >> mouseEnter: anEvent [
 	hover := true.
@@ -197,8 +185,8 @@ CAIconButton >> mouseEnter: anEvent [
 ]
 
 {
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:11'
+	#category : #click,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:19'
 }
 CAIconButton >> mouseLeave: anEvent [
 	hover := false.
@@ -207,12 +195,33 @@ CAIconButton >> mouseLeave: anEvent [
 ]
 
 {
-	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:10'
+	#category : #click,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 13:24'
 }
 CAIconButton >> mouseUp: anEvent [
 	pressed := false.
 	self updateColor.
+	anEvent position = mouseDownPosition ifTrue: [
+		self beforeOnClick.
+		self onClick.]
+	
+]
+
+{
+	#category : #click,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 15:16'
+}
+CAIconButton >> onClick [
+	onClickBlock value.
+]
+
+{
+	#category : #click,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 15:16'
+}
+CAIconButton >> onClick: aBlock [
+	onClickBlock := aBlock.
+	
 ]
 
 {
@@ -268,17 +277,19 @@ CAIconButton >> paddingTopPixels [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 16:25'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:23'
 }
 CAIconButton >> updateColor [
+	| class |
+	class := self class.
 	pressed ifTrue: [
-		self displayPressed.]
+		self color: class pressedColor.]
 	ifFalse: [
-		hover ifTrue: [
-			self displayHover.]
+		active ifTrue: [
+			self color: class activeColor.]
 		ifFalse: [
-			active ifTrue: [self displayActive.]
-			ifFalse: [self displayDefault.].
+			hover ifTrue: [self color: class hoverColor.]
+			ifFalse: [self color: class defaultColor.].
 			].
 		].
 ]
