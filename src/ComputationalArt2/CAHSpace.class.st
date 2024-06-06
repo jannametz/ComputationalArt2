@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dpiWidth'
 	],
-	#category : #ComputationalArt2
+	#category : #'ComputationalArt2-UI'
 }
 
 {

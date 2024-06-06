@@ -5,7 +5,7 @@ Class {
 		'toolClass',
 		'toolContainer'
 	],
-	#category : #ComputationalArt2
+	#category : #'ComputationalArt2-UI'
 }
 
 {

@@ -59,20 +59,20 @@ CAWindow class >> create [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 14:51'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 22:29'
 }
 CAWindow class >> createHBox [
 	| hbox |
 	hbox := Morph new.
 	hbox extent: 0@0;
+		layoutPolicy: TableLayout new;
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
 		color: Color transparent;
 		listDirection: #leftToRight;
 		borderWidth: 0;
 		layoutInset: 0;
-		cellInset: 0;
-		layoutPolicy: TableLayout new.
+		cellInset: 0.
 	^hbox.
 	
 ]

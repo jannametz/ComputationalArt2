@@ -15,7 +15,7 @@ Class {
 		'mouseDownPosition',
 		'onClickBlock'
 	],
-	#category : #ComputationalArt2
+	#category : #'ComputationalArt2-UI'
 }
 
 {

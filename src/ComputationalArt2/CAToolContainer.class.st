@@ -12,11 +12,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 16:10'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 22:37'
 }
 CAToolContainer class >> create: aCAWindow [
 	
-	| toolContainer toolRow contextRow |
+	| toolContainer toolRow contextRow textMorph |
 	toolContainer := CAToolContainer new.
 	toolContainer caWindow: aCAWindow.
 	
@@ -31,6 +31,13 @@ CAToolContainer class >> create: aCAWindow [
 		b name: Tool featureName.
 		contextRow addMorph: b.].
 	contextRow addMorph: CAWindow createHSpaceFiller.
+	
+	textMorph := CAStringMorph new.
+	textMorph contents: 'This is the text to display'.
+	textMorph color: Color red.
+	textMorph vResizing: #shrinkWrap.
+	textMorph hResizing: #shrinkWrap.
+	contextRow addMorph: textMorph.
 	
 	toolContainer contextRow: contextRow.
 	toolContainer addMorph: (CAVSpace new dpiHeight: CAWindow uiSpacing).
