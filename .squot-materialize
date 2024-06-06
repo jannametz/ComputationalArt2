@@ -111,6 +111,15 @@
 			'assets',
 			'img',
 			'tools',
+			'Flood Fill.png'
+		],
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'img',
+			'tools',
 			'Export.png'
 		],
 		#encoding : @4

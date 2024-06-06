@@ -155,17 +155,6 @@ CACanvas >> drawRect: aStartPoint to: anEndPoint color: aColor [
 ]
 
 {
-	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:33'
-}
-CACanvas >> drawString: aString at: anUpperLeftCornerPoint color: aColor [
-
-	stagedCanvas drawString: aString
-		from: 1 to: aString size at: anUpperLeftCornerPoint
-		font: nil color: aColor.
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:32'
 }

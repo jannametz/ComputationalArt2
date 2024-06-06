@@ -1,13 +1,13 @@
 Class {
 	#name : #CACircleTool,
-	#superclass : #CATool,
+	#superclass : #CACanvasTool,
 	#category : #ComputationalArt2
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 12:19'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:46'
 }
-CACircleTool class >> toolName [
+CACircleTool class >> featureName [
 	^'Circle'.
 ]

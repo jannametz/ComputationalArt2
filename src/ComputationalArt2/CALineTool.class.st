@@ -1,13 +1,13 @@
 Class {
 	#name : #CALineTool,
-	#superclass : #CATool,
+	#superclass : #CACanvasTool,
 	#category : #ComputationalArt2
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 12:14'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:46'
 }
-CALineTool class >> toolName [
+CALineTool class >> featureName [
 	^'Line'.
 ]

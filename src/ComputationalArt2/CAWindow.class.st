@@ -93,34 +93,34 @@ CAWindow class >> createHSpaceFiller [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 18:38'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:52'
 }
 CAWindow class >> createMenu [
 	| assetLoader hBox |
 	hBox := CAWindow createHBox.
 	hBox color: CAWindow uiDarkerBackground.
 	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
-	{CAExportImageTool. CAImportImageTool. CAExportTool. CAImportTool. } do: [:Tool | | button |
-		button := Tool createToolButton.
+	{CAExportImageFeature. CAImportImageFeature. CAExportFeature. CAImportFeature. } do: [:Tool | | button |
+		button := Tool createFeatureButton.
 		hBox addMorph: button.
-		(Tool toolName = 'Reset' or: Tool toolName = 'Start') ifTrue:[
+		(Tool featureName = 'Reset' or: Tool featureName = 'Start') ifTrue:[
 			hBox addMorph: CAWindow createHSpaceFiller.].].
 	^hBox.
 ]
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 18:21'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 16:23'
 }
 CAWindow class >> createSimulationsButtons [
 	| hBox assetLoader |
 	hBox := CAWindow createHBox.
 	hBox color: CAWindow uiDarkerBackground.
 	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
-	{CAResetTool. CAPauseTool. CAStartTool. CAStepTool} do: [:Tool | | button |
-		button := Tool createToolButton.
+	{CAResetFeature. CAPauseFeature. CAStartFeature. CAStepFeature} do: [:Tool | | button |
+		button := Tool createFeatureButton.
 		hBox addMorph: button.
-		(Tool toolName = 'Reset' or: Tool toolName = 'Start') ifTrue:[
+		(Tool featureName = 'Reset' or: Tool featureName = 'Start') ifTrue:[
 			hBox addMorph: CAWindow createHSpaceFiller.].].
 	^hBox.
 ]

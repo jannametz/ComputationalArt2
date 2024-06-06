@@ -1,6 +1,6 @@
 Class {
-	#name : #CARectangleTool,
-	#superclass : #CACanvasTool,
+	#name : #CAStartFeature,
+	#superclass : #CAClickableFeature,
 	#category : #ComputationalArt2
 }
 
@@ -8,6 +8,6 @@ Class {
 	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:46'
 }
-CARectangleTool class >> featureName [
-	^'Rectangle'.
+CAStartFeature class >> featureName [
+	^'Start'.
 ]
