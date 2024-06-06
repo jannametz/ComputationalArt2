@@ -12,11 +12,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 22:37'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:37'
 }
 CAToolContainer class >> create: aCAWindow [
 	
-	| toolContainer toolRow contextRow textMorph |
+	| toolContainer toolRow contextRow stringMorph textMorph |
 	toolContainer := CAToolContainer new.
 	toolContainer caWindow: aCAWindow.
 	
@@ -32,12 +32,16 @@ CAToolContainer class >> create: aCAWindow [
 		contextRow addMorph: b.].
 	contextRow addMorph: CAWindow createHSpaceFiller.
 	
-	textMorph := CAStringMorph new.
-	textMorph contents: 'This is the text to display'.
-	textMorph color: Color red.
+	stringMorph := CAStringMorph new.
+	stringMorph contents: 'This is the text to display'.
+	stringMorph color: Color red.
+	stringMorph vResizing: #shrinkWrap.
+	stringMorph hResizing: #shrinkWrap.
+	textMorph := TextMorph new.
+	textMorph contents: '1'.
 	textMorph vResizing: #shrinkWrap.
-	textMorph hResizing: #shrinkWrap.
 	contextRow addMorph: textMorph.
+	contextRow addMorph: stringMorph.
 	
 	toolContainer contextRow: contextRow.
 	toolContainer addMorph: (CAVSpace new dpiHeight: CAWindow uiSpacing).
@@ -45,7 +49,7 @@ CAToolContainer class >> create: aCAWindow [
 	
 	{CAResetCanvasTool. CAFloodFillTool. CACircleTool. CARectangleTool. CALineTool. CAPenTool. CAMoveTool.} do: [:Tool | | b |
 		b := Tool createToolButton: toolContainer.
-		b name: Tool featureName.
+		b name: Tool toolName.
 		toolRow addMorph: b.].
 	
 	toolContainer setActiveClass: CAMoveTool.
@@ -99,10 +103,10 @@ CAToolContainer >> setActiveButton: aCAToolButton [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:32'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:37'
 }
 CAToolContainer >> setActiveClass: aCACanvasToolClass [
-	self setActiveButton: (toolRow submorphNamed: aCACanvasToolClass featureName).
+	self setActiveButton: (toolRow submorphNamed: aCACanvasToolClass toolName).
 	caWindow activeTool: aCACanvasToolClass new.
 ]
 

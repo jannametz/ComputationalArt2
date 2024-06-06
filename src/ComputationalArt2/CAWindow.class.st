@@ -93,7 +93,7 @@ CAWindow class >> createHSpaceFiller [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:52'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
 }
 CAWindow class >> createMenu [
 	| assetLoader hBox |
@@ -110,7 +110,7 @@ CAWindow class >> createMenu [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 16:23'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
 }
 CAWindow class >> createSimulationsButtons [
 	| hBox assetLoader |

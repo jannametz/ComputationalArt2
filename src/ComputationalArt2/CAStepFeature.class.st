@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:46'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
 }
 CAStepFeature class >> featureName [
 	^'Step'.

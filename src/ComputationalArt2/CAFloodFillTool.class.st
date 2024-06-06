@@ -6,8 +6,8 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 16:10'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
 }
-CAFloodFillTool class >> featureName [
+CAFloodFillTool class >> toolName [
 	^'Flood Fill'.
 ]

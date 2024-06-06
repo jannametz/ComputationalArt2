@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:00'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:40'
 }
 CAToolButton class >> newWithClass: aCAToolClass conainer: aCAToolContainer iconWidth:width padding: padding [
 	| button |
@@ -22,16 +22,9 @@ CAToolButton class >> newWithClass: aCAToolClass conainer: aCAToolContainer icon
 	button iconWidth: width.
 	button padding: padding.
 	button baseForm: aCAToolClass buttonForm.
+	button onClick: [aCAToolContainer setActiveClass: aCAToolClass.].
 	button updateSize.
 	^button.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:07'
-}
-CAToolButton >> beforeOnClick [
-	toolContainer setActiveClass: toolClass.
 ]
 
 {

@@ -1,18 +1,34 @@
 Class {
 	#name : #CACanvasTool,
-	#superclass : #CAClickableFeature,
+	#superclass : #Object,
 	#category : #ComputationalArt2
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 14:00'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:36'
+}
+CACanvasTool class >> buttonForm [
+	^((GitAssetLoader for: 'ComputationalArt2') loadImageMorph: 'assets\img\tools\',self toolName,'.png') form.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:36'
 }
 CACanvasTool class >> createToolButton: aCAToolContainer [
 	| button |
 	button := CAToolButton newWithClass: self conainer: aCAToolContainer iconWidth: CAWindow uiIconButtonWidth padding: CAWindow uiIconButtonPadding.
-	self setupButton: button.
+	button balloonText: self toolName.
 	^button.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
+}
+CACanvasTool class >> toolName [
+	^'Tool'
 ]
 
 {

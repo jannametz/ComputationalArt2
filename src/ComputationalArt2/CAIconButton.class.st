@@ -196,23 +196,14 @@ CAIconButton >> mouseLeave: anEvent [
 
 {
 	#category : #click,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 13:24'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:39'
 }
 CAIconButton >> mouseUp: anEvent [
 	pressed := false.
 	self updateColor.
 	anEvent position = mouseDownPosition ifTrue: [
-		self beforeOnClick.
-		self onClick.]
+		onClickBlock value.]
 	
-]
-
-{
-	#category : #click,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 15:16'
-}
-CAIconButton >> onClick [
-	onClickBlock value.
 ]
 
 {
