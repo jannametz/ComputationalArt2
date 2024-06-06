@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #creation,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 19:12'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:46'
 }
 CAWindow class >> create [
 
@@ -29,13 +29,13 @@ CAWindow class >> create [
 	canvasToolVBox addMorph: canvas.
 	canvasToolVBox minimumExtent: 300@300.
 	
-	menuRow := self createMenu.
+	menuRow := self createMenu: window.
 	
 	textField := PluggableTextMorph on: nil text: nil accept: nil.
 	textField vResizing: #spaceFill.
 	textField hResizing: #spaceFill.
 	
-	simButtons := self createSimulationsButtons.
+	simButtons := self createSimulationsButtons: window.
 	simVBox := self createVBox.
 	simVBox addMorph: simButtons.
 	simVBox addMorph: (CAVSpace new dpiHeight: CAWindow uiSpacing).
@@ -93,15 +93,15 @@ CAWindow class >> createHSpaceFiller [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:44'
 }
-CAWindow class >> createMenu [
+CAWindow class >> createMenu: aCAWindow [
 	| assetLoader hBox |
 	hBox := CAWindow createHBox.
 	hBox color: CAWindow uiDarkerBackground.
 	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
 	{CAExportImageFeature. CAImportImageFeature. CAExportFeature. CAImportFeature. } do: [:Tool | | button |
-		button := Tool createFeatureButton.
+		button := Tool createFeatureButton: aCAWindow.
 		hBox addMorph: button.
 		(Tool featureName = 'Reset' or: Tool featureName = 'Start') ifTrue:[
 			hBox addMorph: CAWindow createHSpaceFiller.].].
@@ -110,17 +110,17 @@ CAWindow class >> createMenu [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:46'
 }
-CAWindow class >> createSimulationsButtons [
+CAWindow class >> createSimulationsButtons: aCAWindow [
 	| hBox assetLoader |
 	hBox := CAWindow createHBox.
 	hBox color: CAWindow uiDarkerBackground.
 	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
-	{CAResetFeature. CAPauseFeature. CAStartFeature. CAStepFeature} do: [:Tool | | button |
-		button := Tool createFeatureButton.
+	{CAResetFeature. CAPauseFeature. CAStartFeature. CAStepFeature} do: [:Feature | | button |
+		button := Feature createFeatureButton: aCAWindow.
 		hBox addMorph: button.
-		(Tool featureName = 'Reset' or: Tool featureName = 'Start') ifTrue:[
+		(Feature featureName = 'Reset' or: Feature featureName = 'Start') ifTrue:[
 			hBox addMorph: CAWindow createHSpaceFiller.].].
 	^hBox.
 ]

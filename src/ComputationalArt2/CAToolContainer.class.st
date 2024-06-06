@@ -12,7 +12,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:37'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:44'
 }
 CAToolContainer class >> create: aCAWindow [
 	
@@ -27,7 +27,7 @@ CAToolContainer class >> create: aCAWindow [
 	contextRow color: CAWindow uiDarkerBackground.
 	
 	{CARedoFeature. CAUndoFeature.} do: [:Tool | | b |
-		b := Tool createFeatureButton.
+		b := Tool createFeatureButton: aCAWindow.
 		b name: Tool featureName.
 		contextRow addMorph: b.].
 	contextRow addMorph: CAWindow createHSpaceFiller.

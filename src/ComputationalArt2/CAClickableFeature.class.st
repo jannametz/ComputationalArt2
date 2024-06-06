@@ -14,12 +14,13 @@ CAClickableFeature class >> buttonForm [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:44'
 }
-CAClickableFeature class >> createFeatureButton [
+CAClickableFeature class >> createFeatureButton: aCAWindow [
 	| button |
 	button := CAIconButton newWith: self buttonForm iconWidth: CAWindow uiIconButtonWidth padding: CAWindow uiIconButtonPadding.
 	button balloonText: self featureName.
+	button onClick: [self executeFeature: aCAWindow.].
 	^button.
 ]
 
