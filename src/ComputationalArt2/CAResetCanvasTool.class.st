@@ -11,3 +11,20 @@ Class {
 CAResetCanvasTool class >> featureName [
 	^'Reset Canvas'.
 ]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'iss 6/7/2024 10:55'
+}
+CAResetCanvasTool >> handleMouseDown: anEvent on: aCACanvasContainer [
+	aCACanvasContainer canvas reset.
+	aCACanvasContainer updateForm.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'iss 6/7/2024 10:44'
+}
+CAResetCanvasTool >> initialize [
+	super initialize.
+]
