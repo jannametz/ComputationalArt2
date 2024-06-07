@@ -118,12 +118,12 @@ CACanvas >> depth: aDepth [
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:40'
+	#'squeak_changestamp' : 'iss 6/7/2024 11:09'
 }
 CACanvas >> drawLine: aStartPoint to: anEndPoint width: aLineWidth color: aColor [
 
 	stagedCanvas line: aStartPoint to: anEndPoint
-		width: defaultColor color: aColor.
+		width: 1 color: aColor.
 ]
 
 {
