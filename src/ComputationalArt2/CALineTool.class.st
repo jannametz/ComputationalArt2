@@ -1,10 +1,14 @@
+"
+CALineTool used to draw lines on the canvas.
+"
 Class {
 	#name : #CALineTool,
 	#superclass : #CACanvasTool,
 	#instVars : [
 		'startPoint'
 	],
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:47'
 }
 
 {

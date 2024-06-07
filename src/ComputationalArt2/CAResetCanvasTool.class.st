@@ -1,7 +1,11 @@
+"
+CAResetCanvasTool resets the canvas to its stable state.
+"
 Class {
 	#name : #CAResetCanvasTool,
 	#superclass : #CACanvasTool,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:48'
 }
 
 {

@@ -1,7 +1,11 @@
+"
+CAStartFeature starts a process or simulation on the canvas.
+"
 Class {
 	#name : #CAStartFeature,
 	#superclass : #CAClickableFeature,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:53'
 }
 
 {

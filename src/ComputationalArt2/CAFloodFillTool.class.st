@@ -1,7 +1,11 @@
+"
+CAFloodFillTool fills an area with a selected color.
+"
 Class {
 	#name : #CAFloodFillTool,
 	#superclass : #CACanvasTool,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:53'
 }
 
 {

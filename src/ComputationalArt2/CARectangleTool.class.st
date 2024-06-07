@@ -1,7 +1,11 @@
+"
+CARectangleTool is used to draw rectangles on the canvas.
+"
 Class {
 	#name : #CARectangleTool,
 	#superclass : #CACanvasTool,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:53'
 }
 
 {

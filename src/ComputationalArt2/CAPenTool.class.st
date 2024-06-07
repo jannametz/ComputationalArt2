@@ -1,10 +1,14 @@
+"
+CAPenTool is used to draw freehand lines on the canvas.
+"
 Class {
 	#name : #CAPenTool,
 	#superclass : #CACanvasTool,
 	#instVars : [
 		'isDrawing'
 	],
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:50'
 }
 
 {

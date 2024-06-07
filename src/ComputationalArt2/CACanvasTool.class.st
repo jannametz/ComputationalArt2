@@ -1,7 +1,11 @@
+"
+This abstract class serves as the base for all canvas tools in the Computational Art application.
+"
 Class {
 	#name : #CACanvasTool,
 	#superclass : #CAClickableFeature,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:49'
 }
 
 {
