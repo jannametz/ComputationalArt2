@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 00:50'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 22:24'
 }
 CACheckbox >> initialize [
 	super initialize.
@@ -15,7 +15,7 @@ CACheckbox >> initialize [
 		iconWidth: CAWindow uiIconCheckboxWidth;
 		padding: CAWindow uiIconCheckboxPadding;
 		baseForm: ((GitAssetLoader for: 'ComputationalArt2') loadImageMorph: 'assets\img\tools\Check.png') form;
-		borderWidth: 2;
+		borderWidth: 1;
 		borderColor: Color black;
 		updateSize.
 	displayIcon visible: false.

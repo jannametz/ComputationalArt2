@@ -12,11 +12,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 01:29'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 22:48'
 }
 CAToolContainer class >> create: aCAWindow [
 	
-	| toolContainer toolRow contextRow |
+	| toolContainer contextRow toolRow |
 	toolContainer := CAToolContainer new.
 	toolContainer caWindow: aCAWindow.
 	
@@ -31,10 +31,6 @@ CAToolContainer class >> create: aCAWindow [
 		b name: Tool featureName.
 		contextRow addMorph: b.].
 	contextRow addMorph: CAWindow createHSpaceFiller.
-	
-	contextRow addMorph: (CAWindow createToolFillContextMorph: aCAWindow).
-	contextRow addMorph: (CAHSpace new dpiWidth: 2 * CAWindow uiSpacing).
-	contextRow addMorph: (CAWindow createToolStrokeContextMorph: aCAWindow).
 	
 	toolContainer contextRow: contextRow.
 	toolContainer addMorph: (CAVSpace new dpiHeight: CAWindow uiSpacing).
@@ -96,11 +92,18 @@ CAToolContainer >> setActiveButton: aCAToolButton [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:37'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 22:55'
 }
 CAToolContainer >> setActiveClass: aCACanvasToolClass [
+	| contextBox newContextBox |
 	self setActiveButton: (toolRow submorphNamed: aCACanvasToolClass toolName).
 	caWindow activeTool: aCACanvasToolClass new.
+	contextBox := contextRow submorphNamed: 'contextBox'.
+	newContextBox := aCACanvasToolClass createContextBox: caWindow.
+	newContextBox name: 'contextBox'.
+	contextBox = nil ifTrue: [contextRow addMorph: newContextBox.]
+		ifFalse: [contextRow replaceSubmorph: contextBox by: newContextBox.].
+	
 ]
 
 {

@@ -14,6 +14,14 @@ CACanvasTool class >> buttonForm [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 22:33'
+}
+CACanvasTool class >> createContextBox: aCAWindow [
+	^self subclassResponsibility.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 00:05'
 }
 CACanvasTool class >> createToolButton: aCAToolContainer [

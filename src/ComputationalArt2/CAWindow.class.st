@@ -5,7 +5,8 @@ Class {
 		'activeTool',
 		'canvasContainer',
 		'toolFill',
-		'toolStroke'
+		'toolStroke',
+		'toolStrokeWidth'
 	],
 	#category : #ComputationalArt2
 }
@@ -150,7 +151,7 @@ CAWindow class >> createToolFillContextMorph: aCAWindow [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 01:27'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 23:02'
 }
 CAWindow class >> createToolStrokeContextMorph: aCAWindow [
 	 | hBox checkBox text |
@@ -164,6 +165,26 @@ CAWindow class >> createToolStrokeContextMorph: aCAWindow [
 	hBox := self createHBox.
 	hBox hResizing: #shrinkWrap;
 		addMorph: checkBox;
+		addMorph: (CAHSpace new dpiWidth: CAWindow uiSpacing);
+		addMorph: text.
+	^hBox.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:58'
+}
+CAWindow class >> createToolStrokeWidthContextMorph: aCAWindow [
+	 | hBox text |	
+	text := CAStringMorph new.
+	text contents: 'Stroke Width:'.
+	
+	hBox := self createHBox.
+	hBox hResizing: #shrinkWrap;
+		addMorph: (CAIntegerTextMorph new number: aCAWindow toolStrokeWidth;
+			minValue: 1;
+			maxValue: 16;
+			actionBlock: [:num|aCAWindow toolStrokeWidth: num.]);
 		addMorph: (CAHSpace new dpiWidth: CAWindow uiSpacing);
 		addMorph: text.
 	^hBox.
@@ -187,6 +208,22 @@ CAWindow class >> createVBox [
 		layoutPolicy: TableLayout new.
 	^vbox.
 	
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 01:36'
+}
+CAWindow class >> uiBrighterBackground [
+	^Color r: 1.0 g: 1.0 b: 1.0 alpha: 0.1.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 22:56'
+}
+CAWindow class >> uiContextBoxSpacing [
+	^12.
 ]
 
 {
@@ -231,6 +268,14 @@ CAWindow class >> uiIconCheckboxWidth [
 
 {
 	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:07'
+}
+CAWindow class >> uiNumberInputWidth [
+	^100.
+]
+
+{
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 16:17'
 }
 CAWindow class >> uiSpacing [
@@ -271,12 +316,13 @@ CAWindow >> canvasContainer: aCanvasContainer [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 01:13'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:43'
 }
 CAWindow >> initialize [
 	super initialize.
 	toolFill := false.
 	toolStroke := true.
+	toolStrokeWidth := 1.
 ]
 
 {
@@ -317,4 +363,20 @@ CAWindow >> toolStroke [
 }
 CAWindow >> toolStroke: aBoolean [
 	toolStroke := aBoolean.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:44'
+}
+CAWindow >> toolStrokeWidth [
+	^toolStrokeWidth
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:44'
+}
+CAWindow >> toolStrokeWidth: aNumber [
+	toolStrokeWidth := aNumber.
 ]
