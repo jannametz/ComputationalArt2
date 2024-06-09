@@ -1,7 +1,11 @@
+"
+CAMoveTool allows moving and zooming the canvas content.
+"
 Class {
 	#name : #CAMoveTool,
 	#superclass : #CACanvasTool,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:51'
 }
 
 {

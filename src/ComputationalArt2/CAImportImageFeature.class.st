@@ -1,7 +1,11 @@
+"
+CAImportImageFeature imports an image onto the canvas.
+"
 Class {
 	#name : #CAImportImageFeature,
 	#superclass : #CAClickableFeature,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:54'
 }
 
 {

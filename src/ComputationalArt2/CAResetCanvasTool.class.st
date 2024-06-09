@@ -1,7 +1,11 @@
+"
+CAResetCanvasTool resets the canvas to its stable state.
+"
 Class {
 	#name : #CAResetCanvasTool,
 	#superclass : #CACanvasTool,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:48'
 }
 
 {
@@ -21,4 +25,21 @@ CAResetCanvasTool class >> createContextBox: aCAWindow [
 }
 CAResetCanvasTool class >> toolName [
 	^'Reset Canvas'.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'iss 6/7/2024 10:55'
+}
+CAResetCanvasTool >> handleMouseDown: anEvent on: aCACanvasContainer [
+	aCACanvasContainer canvas reset.
+	aCACanvasContainer updateForm.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'iss 6/7/2024 10:44'
+}
+CAResetCanvasTool >> initialize [
+	super initialize.
 ]

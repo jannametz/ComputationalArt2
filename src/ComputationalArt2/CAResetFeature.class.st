@@ -1,7 +1,11 @@
+"
+CAResetFeature resets a process or simulation on the canvas.
+"
 Class {
 	#name : #CAResetFeature,
 	#superclass : #CAClickableFeature,
-	#category : #ComputationalArt2
+	#category : #ComputationalArt2,
+	#'squeak_changestamp' : 'iss 6/7/2024 11:52'
 }
 
 {
