@@ -10,9 +10,20 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:46'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 22:49'
 }
-CAMoveTool class >> featureName [
+CAMoveTool class >> createContextBox: aCAWindow [
+	| hBox |
+	hBox := CAWindow createHBox.
+	hBox addMorph: (CAStringMorph new contents: 'Move').
+	^hBox.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:34'
+}
+CAMoveTool class >> toolName [
 	^'Move'.
 ]
 

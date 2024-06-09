@@ -93,6 +93,15 @@
 			'assets',
 			'img',
 			'tools',
+			'Check.png'
+		],
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'img',
+			'tools',
 			'Circle.png'
 		],
 		#encoding : @4

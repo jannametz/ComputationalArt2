@@ -3,14 +3,17 @@ Class {
 	#superclass : #SystemWindow,
 	#instVars : [
 		'activeTool',
-		'canvasContainer'
+		'canvasContainer',
+		'toolFill',
+		'toolStroke',
+		'toolStrokeWidth'
 	],
 	#category : #ComputationalArt2
 }
 
 {
 	#category : #creation,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 19:12'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:46'
 }
 CAWindow class >> create [
 
@@ -29,13 +32,13 @@ CAWindow class >> create [
 	canvasToolVBox addMorph: canvas.
 	canvasToolVBox minimumExtent: 300@300.
 	
-	menuRow := self createMenu.
+	menuRow := self createMenu: window.
 	
 	textField := PluggableTextMorph on: nil text: nil accept: nil.
 	textField vResizing: #spaceFill.
 	textField hResizing: #spaceFill.
 	
-	simButtons := self createSimulationsButtons.
+	simButtons := self createSimulationsButtons: window.
 	simVBox := self createVBox.
 	simVBox addMorph: simButtons.
 	simVBox addMorph: (CAVSpace new dpiHeight: CAWindow uiSpacing).
@@ -59,20 +62,20 @@ CAWindow class >> create [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 14:51'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 22:29'
 }
 CAWindow class >> createHBox [
 	| hbox |
 	hbox := Morph new.
 	hbox extent: 0@0;
+		layoutPolicy: TableLayout new;
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
 		color: Color transparent;
 		listDirection: #leftToRight;
 		borderWidth: 0;
 		layoutInset: 0;
-		cellInset: 0;
-		layoutPolicy: TableLayout new.
+		cellInset: 0.
 	^hbox.
 	
 ]
@@ -93,15 +96,15 @@ CAWindow class >> createHSpaceFiller [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 12:52'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:44'
 }
-CAWindow class >> createMenu [
+CAWindow class >> createMenu: aCAWindow [
 	| assetLoader hBox |
 	hBox := CAWindow createHBox.
 	hBox color: CAWindow uiDarkerBackground.
 	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
 	{CAExportImageFeature. CAImportImageFeature. CAExportFeature. CAImportFeature. } do: [:Tool | | button |
-		button := Tool createFeatureButton.
+		button := Tool createFeatureButton: aCAWindow.
 		hBox addMorph: button.
 		(Tool featureName = 'Reset' or: Tool featureName = 'Start') ifTrue:[
 			hBox addMorph: CAWindow createHSpaceFiller.].].
@@ -110,18 +113,80 @@ CAWindow class >> createMenu [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 16:23'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:46'
 }
-CAWindow class >> createSimulationsButtons [
+CAWindow class >> createSimulationsButtons: aCAWindow [
 	| hBox assetLoader |
 	hBox := CAWindow createHBox.
 	hBox color: CAWindow uiDarkerBackground.
 	assetLoader := GitAssetLoader for: 'ComputationalArt2'.
-	{CAResetFeature. CAPauseFeature. CAStartFeature. CAStepFeature} do: [:Tool | | button |
-		button := Tool createFeatureButton.
+	{CAResetFeature. CAPauseFeature. CAStartFeature. CAStepFeature} do: [:Feature | | button |
+		button := Feature createFeatureButton: aCAWindow.
 		hBox addMorph: button.
-		(Tool featureName = 'Reset' or: Tool featureName = 'Start') ifTrue:[
+		(Feature featureName = 'Reset' or: Feature featureName = 'Start') ifTrue:[
 			hBox addMorph: CAWindow createHSpaceFiller.].].
+	^hBox.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 01:27'
+}
+CAWindow class >> createToolFillContextMorph: aCAWindow [
+	 | hBox checkBox text |
+	checkBox := CACheckbox new.
+	checkBox active: aCAWindow toolFill.
+	checkBox onClick: [aCAWindow toolFill: checkBox isChecked.].
+	
+	text := CAStringMorph new.
+	text contents: 'Fill:'.
+	
+	hBox := self createHBox.
+	hBox hResizing: #shrinkWrap;
+		addMorph: checkBox;
+		addMorph: (CAHSpace new dpiWidth: CAWindow uiSpacing);
+		addMorph: text.
+	^hBox.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 23:02'
+}
+CAWindow class >> createToolStrokeContextMorph: aCAWindow [
+	 | hBox checkBox text |
+	checkBox := CACheckbox new.
+	checkBox active: aCAWindow toolStroke.
+	checkBox onClick: [aCAWindow toolStroke: checkBox isChecked.].
+	
+	text := CAStringMorph new.
+	text contents: 'Stroke:'.
+	
+	hBox := self createHBox.
+	hBox hResizing: #shrinkWrap;
+		addMorph: checkBox;
+		addMorph: (CAHSpace new dpiWidth: CAWindow uiSpacing);
+		addMorph: text.
+	^hBox.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:58'
+}
+CAWindow class >> createToolStrokeWidthContextMorph: aCAWindow [
+	 | hBox text |	
+	text := CAStringMorph new.
+	text contents: 'Stroke Width:'.
+	
+	hBox := self createHBox.
+	hBox hResizing: #shrinkWrap;
+		addMorph: (CAIntegerTextMorph new number: aCAWindow toolStrokeWidth;
+			minValue: 1;
+			maxValue: 16;
+			actionBlock: [:num|aCAWindow toolStrokeWidth: num.]);
+		addMorph: (CAHSpace new dpiWidth: CAWindow uiSpacing);
+		addMorph: text.
 	^hBox.
 ]
 
@@ -147,6 +212,22 @@ CAWindow class >> createVBox [
 
 {
 	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 01:36'
+}
+CAWindow class >> uiBrighterBackground [
+	^Color r: 1.0 g: 1.0 b: 1.0 alpha: 0.1.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/8/2024 22:56'
+}
+CAWindow class >> uiContextBoxSpacing [
+	^12.
+]
+
+{
+	#category : #ui,
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/5/2024 17:30'
 }
 CAWindow class >> uiDarkerBackground [
@@ -167,6 +248,30 @@ CAWindow class >> uiIconButtonPadding [
 }
 CAWindow class >> uiIconButtonWidth [
 	^16.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 00:51'
+}
+CAWindow class >> uiIconCheckboxPadding [
+	^3.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 00:51'
+}
+CAWindow class >> uiIconCheckboxWidth [
+	^10.
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:07'
+}
+CAWindow class >> uiNumberInputWidth [
+	^100.
 ]
 
 {
@@ -211,8 +316,67 @@ CAWindow >> canvasContainer: aCanvasContainer [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:43'
+}
+CAWindow >> initialize [
+	super initialize.
+	toolFill := false.
+	toolStroke := true.
+	toolStrokeWidth := 1.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/4/2024 00:25'
 }
 CAWindow >> paneColor [
 	^self defaultColor.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 01:12'
+}
+CAWindow >> toolFill [
+	^toolFill.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 01:13'
+}
+CAWindow >> toolFill: aBoolean [
+	toolFill := aBoolean.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 01:13'
+}
+CAWindow >> toolStroke [
+	^toolStroke.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/7/2024 01:13'
+}
+CAWindow >> toolStroke: aBoolean [
+	toolStroke := aBoolean.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:44'
+}
+CAWindow >> toolStrokeWidth [
+	^toolStrokeWidth
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:44'
+}
+CAWindow >> toolStrokeWidth: aNumber [
+	toolStrokeWidth := aNumber.
 ]
