@@ -4,8 +4,8 @@ This abstract class serves as the base for all canvas tools in the Computational
 Class {
 	#name : #CACanvasTool,
 	#superclass : #Object,
-	#category : #ComputationalArt2
-  #'squeak_changestamp' : 'iss 6/7/2024 11:49'
+	#category : #ComputationalArt2,
+  	#'squeak_changestamp' : 'iss 6/7/2024 11:49'
 }
 
 {
