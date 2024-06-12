@@ -39,6 +39,15 @@ CACanvas >> clearColor: aColor [
 
 {
 	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/12/2024 18:53'
+}
+CACanvas >> clearImage: aForm [
+
+	stagedCanvas image: aForm at: 0@0.
+]
+
+{
+	#category : #api,
 	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:17'
 }
 CACanvas >> colorAt: aPosition [
@@ -233,11 +242,10 @@ CACanvas >> height [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:22'
+	#'squeak_changestamp' : 'Tyron Franzke 6/12/2024 18:52'
 }
 CACanvas >> height: aHeight [
 	height := aHeight
-	"apply height change to canvas"
 ]
 
 {
@@ -268,6 +276,39 @@ CACanvas >> reset [
 ]
 
 {
+	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/12/2024 18:52'
+}
+CACanvas >> resize [
+	
+	| oldForm |
+	oldForm := stableCanvas form.
+	
+	stableCanvas := FormCanvas extent:
+		(self width)@(self height) depth: (self depth).
+	stagedCanvas := FormCanvas extent:
+		(self width)@(self height) depth: (self depth).
+	
+	self clearColor: defaultColor.
+	self clearImage: oldForm.
+	self commit.
+]
+
+{
+	#category : #api,
+	#'squeak_changestamp' : 'Tyron Franzke 6/12/2024 18:52'
+}
+CACanvas >> resize: aWidth height: aHeight [
+	
+	| oldForm |
+	oldForm := stableCanvas form.
+	
+	width := aWidth.
+	height := aHeight.
+	self resize.
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 00:55'
 }
@@ -277,9 +318,8 @@ CACanvas >> width [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:23'
+	#'squeak_changestamp' : 'Tyron Franzke 6/12/2024 18:52'
 }
 CACanvas >> width: aWidth [
 	width := aWidth
-	"apply width change to canvas"
 ]
