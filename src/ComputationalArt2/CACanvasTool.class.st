@@ -5,7 +5,7 @@ Class {
 	#name : #CACanvasTool,
 	#superclass : #Object,
 	#category : #ComputationalArt2,
-  	#'squeak_changestamp' : 'iss 6/7/2024 11:49'
+	#'squeak_changestamp' : 'iss 6/7/2024 11:49'
 }
 
 {
