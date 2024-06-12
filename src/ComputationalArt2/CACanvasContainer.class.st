@@ -22,6 +22,14 @@ CACanvasContainer class >> newWith: aCAWindow [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'iss 6/12/2024 18:06'
+}
+CACanvasContainer >> caWindow [
+	^caWindow
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/2/2024 12:55'
 }
 CACanvasContainer >> caWindow: aCAWindow [

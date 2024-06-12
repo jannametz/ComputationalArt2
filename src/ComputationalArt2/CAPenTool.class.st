@@ -32,18 +32,16 @@ CAPenTool class >> toolName [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'iss 6/7/2024 10:31'
+	#'squeak_changestamp' : 'iss 6/12/2024 17:41'
 }
 CAPenTool >> drawAt: aPoint on: aCACanvasContainer [
-	| color |
-	color := Color black.
-	aCACanvasContainer canvas drawPoint: aPoint color: color.
+	aCACanvasContainer canvas drawPoint: aPoint color: Color black.
 
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'iss 6/7/2024 10:34'
+	#'squeak_changestamp' : 'iss 6/12/2024 17:41'
 }
 CAPenTool >> handleMouseDown: anEvent on: aCACanvasContainer [
 	isDrawing := true.
@@ -53,17 +51,18 @@ CAPenTool >> handleMouseDown: anEvent on: aCACanvasContainer [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'iss 6/7/2024 10:33'
+	#'squeak_changestamp' : 'iss 6/12/2024 17:40'
 }
 CAPenTool >> handleMouseMove: anEvent on: aCACanvasContainer [
 	isDrawing ifTrue: [
 		self drawAt: (aCACanvasContainer getPixelPosition: anEvent position) on: aCACanvasContainer.
 		].
+	aCACanvasContainer updateForm.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'iss 6/7/2024 10:32'
+	#'squeak_changestamp' : 'iss 6/12/2024 17:41'
 }
 CAPenTool >> handleMouseUp: anEvent on: aCACanvasContainer [
 	isDrawing := false.

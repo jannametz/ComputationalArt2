@@ -26,3 +26,16 @@ CAFloodFillTool class >> createContextBox: aCAWindow [
 CAFloodFillTool class >> toolName [
 	^'Flood Fill'.
 ]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'iss 6/12/2024 17:38'
+}
+CAFloodFillTool >> handleMouseDown: anEvent on: aCACanvasContainer [
+	| startPoint |
+	startPoint := aCACanvasContainer getPixelPosition: anEvent position.
+	
+	aCACanvasContainer canvas fillFrom: startPoint withColor: Color red.
+	
+	aCACanvasContainer updateForm.
+]

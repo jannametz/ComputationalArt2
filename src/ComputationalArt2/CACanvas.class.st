@@ -118,6 +118,24 @@ CACanvas >> depth: aDepth [
 
 {
 	#category : #api,
+	#'squeak_changestamp' : 'iss 6/12/2024 18:35'
+}
+CACanvas >> drawCircleOutlineAt: center radius: radius color: aColor [
+	| angle stepAngle prevPoint x y |
+	stepAngle := (2 * Float pi) / 100.
+	prevPoint := center + (radius @ 0).
+	
+	1 to: 100 do: [:i |
+		angle := i * stepAngle.
+		x := center x + (radius * (angle cos)).
+		y := center y + (radius * (angle sin)).
+		self drawLine: prevPoint to: (x @ y) width: 1 color: aColor.
+		prevPoint := (x @ y).
+		].
+]
+
+{
+	#category : #api,
 	#'squeak_changestamp' : 'iss 6/7/2024 11:09'
 }
 CACanvas >> drawLine: aStartPoint to: anEndPoint width: aLineWidth color: aColor [
@@ -155,6 +173,49 @@ CACanvas >> drawRect: aStartPoint to: anEndPoint color: aColor [
 ]
 
 {
+	#category : #api,
+	#'squeak_changestamp' : 'iss 6/12/2024 18:33'
+}
+CACanvas >> fillCircleAt: center radius: radius color: aColor [
+	| dx dy |
+	(center x - radius to: center x + radius) do: [:x |
+		(center y - radius to: center y + radius) do: [:y |
+			dx := x - center x.
+			dy := y - center y.
+			((dx * dx) + (dy * dy) <= (radius * radius)) ifTrue: [
+				self drawPoint: (x @ y) color: aColor.
+				].
+			].
+		].
+]
+
+{
+	#category : #api,
+	#'squeak_changestamp' : 'iss 6/11/2024 16:49'
+}
+CACanvas >> fillFrom: startPoint withColor: aColor [
+
+	| stack oldColor |
+	oldColor := self colorAt: startPoint.
+	(oldColor = aColor) ifTrue: [ ^self ].
+	
+	stack := OrderedCollection new.
+	stack add: startPoint.
+	
+	[ stack isEmpty ] whileFalse: [
+		| point neighbors |
+		point := stack removeLast.
+		(self colorAt: point) = oldColor ifTrue: [
+			self drawPoint: point color: aColor.
+			neighbors := { point + (1@0). point - (1@0). point + (0@1). point - (0@1) }.
+			neighbors do: [ :neighbor |
+				(self isInBounds: neighbor) ifTrue: [ stack add: neighbor ].
+			].
+		].
+	].
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:32'
 }
@@ -186,6 +247,15 @@ CACanvas >> height: aHeight [
 CACanvas >> initialize [
 
 	defaultColor := Color gray.
+]
+
+{
+	#category : #api,
+	#'squeak_changestamp' : 'iss 6/11/2024 16:44'
+}
+CACanvas >> isInBounds: aPoint [
+	^(aPoint x >= 0 and: [ aPoint x < self width ])
+	and: [ aPoint y >= 0 and: [ aPoint y < self height ]].
 ]
 
 {

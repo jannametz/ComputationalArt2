@@ -38,28 +38,23 @@ CACircleTool class >> toolName [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'iss 6/7/2024 11:44'
+	#'squeak_changestamp' : 'iss 6/12/2024 18:37'
 }
 CACircleTool >> drawCircleFrom: startPoint to: endPoint on: aCACanvasContainer [
-	| center radius angle stepAngle x y prevPoint |
+	| center radius |
 	center := (startPoint + endPoint) // 2.
 	radius := (startPoint dist: endPoint) // 2.
-	stepAngle := (2 * Float pi) / self numberOfSteps.
-	prevPoint := center + (radius @ 0).
 	
-	1 to: self numberOfSteps do: [:i |
-		angle := i * stepAngle.
-		x := center x + (radius * (angle cos)).
-		y := center y + (radius * (angle sin)).
-		
-		aCACanvasContainer canvas drawLine: prevPoint to: (x@y) width: 1 color: Color black.
-        prevPoint := (x@y)
-].
+	(aCACanvasContainer caWindow toolFill) ifTrue: [
+		aCACanvasContainer canvas fillCircleAt: center radius: radius color: Color black
+		] ifFalse: [
+			aCACanvasContainer canvas drawCircleOutlineAt: center radius: radius color: Color black
+			].
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'iss 6/7/2024 11:27'
+	#'squeak_changestamp' : 'iss 6/12/2024 17:39'
 }
 CACircleTool >> handleMouseDown: anEvent on: aCACanvasContainer [
 	startPoint := aCACanvasContainer getPixelPosition: anEvent position.
@@ -68,11 +63,13 @@ CACircleTool >> handleMouseDown: anEvent on: aCACanvasContainer [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'iss 6/7/2024 11:27'
+	#'squeak_changestamp' : 'iss 6/12/2024 17:38'
 }
 CACircleTool >> handleMouseUp: anEvent on: aCACanvasContainer [
 	self drawCircleFrom: startPoint to: (aCACanvasContainer getPixelPosition: anEvent position) on: aCACanvasContainer.
 	startPoint := nil.
+	
+	aCACanvasContainer updateForm.
 ]
 
 {
