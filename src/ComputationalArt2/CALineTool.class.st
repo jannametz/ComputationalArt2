@@ -32,22 +32,38 @@ CALineTool class >> toolName [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'iss 6/12/2024 17:35'
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:28'
 }
 CALineTool >> handleMouseDown: anEvent on: aCACanvasContainer [
 	startPoint := aCACanvasContainer getPixelPosition: anEvent position.
+	aCACanvasContainer canvas commit.
 	aCACanvasContainer updateForm.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'iss 6/12/2024 17:36'
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:25'
+}
+CALineTool >> handleMouseMove: anEvent on: aCACanvasContainer [
+
+	startPoint ifNotNil: [ | endPoint |
+		aCACanvasContainer canvas reset.
+		endPoint := aCACanvasContainer getPixelPosition: anEvent position.
+		aCACanvasContainer canvas drawLine: startPoint to: endPoint width: 1 color: Color black.
+		aCACanvasContainer updateForm.
+		].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:29'
 }
 CALineTool >> handleMouseUp: anEvent on: aCACanvasContainer [
 	| endPoint |
 	endPoint := aCACanvasContainer getPixelPosition: anEvent position.
 	aCACanvasContainer canvas drawLine: startPoint to: endPoint width: 1 color: Color black.
 	startPoint := nil.
+	aCACanvasContainer canvas commit.
 	aCACanvasContainer updateForm.
 ]
 
