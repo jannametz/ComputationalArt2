@@ -54,21 +54,37 @@ CACircleTool >> drawCircleFrom: startPoint to: endPoint on: aCACanvasContainer [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'iss 6/12/2024 17:39'
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:38'
 }
 CACircleTool >> handleMouseDown: anEvent on: aCACanvasContainer [
+	aCACanvasContainer canvas commit.
 	startPoint := aCACanvasContainer getPixelPosition: anEvent position.
 
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'iss 6/12/2024 17:38'
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:37'
+}
+CACircleTool >> handleMouseMove: anEvent on: aCACanvasContainer [
+	
+	startPoint ifNotNil: [ 
+		aCACanvasContainer canvas reset.
+		self drawCircleFrom: startPoint to: 
+			(aCACanvasContainer getPixelPosition: anEvent position) on: aCACanvasContainer.
+		aCACanvasContainer updateForm.
+		].
+]
+
+{
+	#category : #'event handling',
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:38'
 }
 CACircleTool >> handleMouseUp: anEvent on: aCACanvasContainer [
 	self drawCircleFrom: startPoint to: (aCACanvasContainer getPixelPosition: anEvent position) on: aCACanvasContainer.
 	startPoint := nil.
 	
+	aCACanvasContainer canvas commit.
 	aCACanvasContainer updateForm.
 ]
 
