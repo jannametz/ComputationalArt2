@@ -32,9 +32,10 @@ CALineTool class >> toolName [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:28'
+	#'squeak_changestamp' : 'iss 6/13/2024 16:32'
 }
 CALineTool >> handleMouseDown: anEvent on: aCACanvasContainer [
+	aCACanvasContainer canvas saveState.
 	startPoint := aCACanvasContainer getPixelPosition: anEvent position.
 	aCACanvasContainer canvas commit.
 	aCACanvasContainer updateForm.

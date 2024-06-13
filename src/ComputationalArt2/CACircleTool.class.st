@@ -54,9 +54,10 @@ CACircleTool >> drawCircleFrom: startPoint to: endPoint on: aCACanvasContainer [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:38'
+	#'squeak_changestamp' : 'iss 6/13/2024 16:35'
 }
 CACircleTool >> handleMouseDown: anEvent on: aCACanvasContainer [
+	aCACanvasContainer canvas saveState.
 	aCACanvasContainer canvas commit.
 	startPoint := aCACanvasContainer getPixelPosition: anEvent position.
 

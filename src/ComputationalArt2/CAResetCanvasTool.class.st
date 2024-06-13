@@ -29,10 +29,12 @@ CAResetCanvasTool class >> toolName [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'iss 6/7/2024 10:55'
+	#'squeak_changestamp' : 'iss 6/13/2024 16:38'
 }
 CAResetCanvasTool >> handleMouseDown: anEvent on: aCACanvasContainer [
+	aCACanvasContainer canvas saveState.
 	aCACanvasContainer canvas reset.
+	aCACanvasContainer canvas commit.
 	aCACanvasContainer updateForm.
 ]
 

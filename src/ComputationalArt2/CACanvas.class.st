@@ -7,7 +7,9 @@ Class {
 		'depth',
 		'stagedCanvas',
 		'stableCanvas',
-		'defaultColor'
+		'defaultColor',
+		'undoStack',
+		'redoStack'
 	],
 	#category : #ComputationalArt2
 }
@@ -30,19 +32,21 @@ CACanvas class >> new: aWidth height: aHeight depth: aDepth [
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:36'
+	#'squeak_changestamp' : 'iss 6/13/2024 16:39'
 }
 CACanvas >> clearColor: aColor [
 
+	self saveState.
 	stagedCanvas form fillWithColor: aColor.
 ]
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'Tyron Franzke 6/12/2024 18:53'
+	#'squeak_changestamp' : 'iss 6/13/2024 16:13'
 }
 CACanvas >> clearImage: aForm [
-
+	
+	self saveState.
 	stagedCanvas image: aForm at: 0@0.
 ]
 
@@ -250,11 +254,13 @@ CACanvas >> height: aHeight [
 
 {
 	#category : #'initialize-release',
-	#'squeak_changestamp' : 'Tyron Franzke 6/5/2024 13:49'
+	#'squeak_changestamp' : 'iss 6/13/2024 16:03'
 }
 CACanvas >> initialize [
 
 	defaultColor := Color gray.
+	undoStack := OrderedCollection new.
+	redoStack := OrderedCollection new.
 ]
 
 {
@@ -264,6 +270,27 @@ CACanvas >> initialize [
 CACanvas >> isInBounds: aPoint [
 	^(aPoint x >= 0 and: [ aPoint x < self width ])
 	and: [ aPoint y >= 0 and: [ aPoint y < self height ]].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'iss 6/13/2024 16:06'
+}
+CACanvas >> maxStackSize [
+	^50
+]
+
+{
+	#category : #'state management',
+	#'squeak_changestamp' : 'iss 6/13/2024 16:40'
+}
+CACanvas >> redo [
+
+	redoStack isEmpty ifTrue: [self inform: 'no more redo actions'
+		] ifFalse: [undoStack add: (stagedCanvas form deepCopy).
+		stagedCanvas setForm: redoStack removeLast.
+		self commit.
+		].
 ]
 
 {
@@ -306,6 +333,30 @@ CACanvas >> resize: aWidth height: aHeight [
 	width := aWidth.
 	height := aHeight.
 	self resize.
+]
+
+{
+	#category : #'state management',
+	#'squeak_changestamp' : 'iss 6/13/2024 16:41'
+}
+CACanvas >> saveState [
+
+	undoStack size >= self maxStackSize ifTrue: [undoStack removeFirst].
+	undoStack add: (stagedCanvas form deepCopy).
+	redoStack := OrderedCollection new.
+]
+
+{
+	#category : #'state management',
+	#'squeak_changestamp' : 'iss 6/13/2024 16:39'
+}
+CACanvas >> undo [
+
+	undoStack isEmpty ifTrue: [self inform: 'no more undo actions'
+		] ifFalse: [redoStack add: (stagedCanvas form deepCopy).
+		stagedCanvas setForm: undoStack removeLast.
+		self commit.
+		].
 ]
 
 {
