@@ -78,22 +78,40 @@ CARectangleTool >> drawRectangleFrom: startPoint to: endPoint on: aCACanvasConta
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Halfil 6/12/2024 21:54'
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:47'
 }
 CARectangleTool >> handleMouseDown: anEvent on: aCACanvasContainer [
-    startPoint := aCACanvasContainer getPixelPosition: anEvent position.
+	
+	aCACanvasContainer canvas commit.
+	startPoint := aCACanvasContainer getPixelPosition: anEvent position.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Halfil 6/12/2024 21:54'
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:47'
+}
+CARectangleTool >> handleMouseMove: anEvent on: aCACanvasContainer [
+	
+	startPoint ifNotNil: [ | endPoint |
+		aCACanvasContainer canvas reset.
+		endPoint := aCACanvasContainer getPixelPosition: anEvent position.
+		self drawRectangleFrom: startPoint to: endPoint on: aCACanvasContainer.
+		aCACanvasContainer updateForm.
+		].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:48'
 }
 CARectangleTool >> handleMouseUp: anEvent on: aCACanvasContainer [
-    | endPoint |
-    endPoint := aCACanvasContainer getPixelPosition: anEvent position.
-    self drawRectangleFrom: startPoint to: endPoint on: aCACanvasContainer.
-    startPoint := nil.  
-    aCACanvasContainer updateForm.
+    
+	| endPoint |
+	endPoint := aCACanvasContainer getPixelPosition: anEvent position.
+	self drawRectangleFrom: startPoint to: endPoint on: aCACanvasContainer.
+	startPoint := nil.
+	aCACanvasContainer canvas commit.
+	aCACanvasContainer updateForm.
 ]
 
 {
