@@ -149,12 +149,12 @@ CACanvas >> drawCircleOutlineAt: center radius: radius color: aColor [
 
 {
 	#category : #api,
-	#'squeak_changestamp' : 'iss 6/7/2024 11:09'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 21:19'
 }
 CACanvas >> drawLine: aStartPoint to: anEndPoint width: aLineWidth color: aColor [
 
 	stagedCanvas line: aStartPoint to: anEndPoint
-		width: 1 color: aColor.
+		width: aLineWidth color: aColor.
 ]
 
 {

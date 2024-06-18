@@ -6,7 +6,9 @@ Class {
 		'canvasContainer',
 		'toolFill',
 		'toolStroke',
-		'toolStrokeWidth'
+		'toolStrokeWidth',
+		'primaryColor',
+		'secondaryColor'
 	],
 	#category : #ComputationalArt2
 }
@@ -172,7 +174,7 @@ CAWindow class >> createToolStrokeContextMorph: aCAWindow [
 
 {
 	#category : #ui,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:58'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 21:18'
 }
 CAWindow class >> createToolStrokeWidthContextMorph: aCAWindow [
 	 | hBox text |	
@@ -208,6 +210,20 @@ CAWindow class >> createVBox [
 		layoutPolicy: TableLayout new.
 	^vbox.
 	
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 20:42'
+}
+CAWindow class >> createVSpaceFiller [
+	| morph |
+	morph := Morph new.
+	morph color: Color transparent.
+	morph extent: 0@0.
+	morph vResizing: #spaceFill.
+	morph hResizing: #rigid.
+	^morph.
 ]
 
 {
@@ -316,13 +332,16 @@ CAWindow >> canvasContainer: aCanvasContainer [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 00:43'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 19:59'
 }
 CAWindow >> initialize [
 	super initialize.
+	self clipSubmorphs: true.
 	toolFill := false.
 	toolStroke := true.
 	toolStrokeWidth := 1.
+	primaryColor := CARGB newFrom: Color black.
+	secondaryColor := CARGB newFrom: Color white.
 ]
 
 {
@@ -331,6 +350,38 @@ CAWindow >> initialize [
 }
 CAWindow >> paneColor [
 	^self defaultColor.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 19:52'
+}
+CAWindow >> primaryColor [
+	^ primaryColor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 19:52'
+}
+CAWindow >> primaryColor: aCARGB [
+	primaryColor := aCARGB.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 19:52'
+}
+CAWindow >> secondaryColor [
+	^ secondaryColor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 19:52'
+}
+CAWindow >> secondaryColor: aCARGB [
+	secondaryColor := aCARGB.
 ]
 
 {

@@ -43,26 +43,27 @@ CALineTool >> handleMouseDown: anEvent on: aCACanvasContainer [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:25'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 21:15'
 }
 CALineTool >> handleMouseMove: anEvent on: aCACanvasContainer [
 
-	startPoint ifNotNil: [ | endPoint |
+	startPoint ifNotNil: [ | endPoint caWindow |
+		caWindow := aCACanvasContainer caWindow.
 		aCACanvasContainer canvas reset.
 		endPoint := aCACanvasContainer getPixelPosition: anEvent position.
-		aCACanvasContainer canvas drawLine: startPoint to: endPoint width: 1 color: Color black.
-		aCACanvasContainer updateForm.
-		].
+		aCACanvasContainer canvas drawLine: startPoint to: endPoint width: caWindow toolStrokeWidth color: caWindow primaryColor morphicColor.
+		aCACanvasContainer updateForm.].
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Tyron Franzke 6/13/2024 10:29'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 21:16'
 }
 CALineTool >> handleMouseUp: anEvent on: aCACanvasContainer [
-	| endPoint |
+	| endPoint caWindow |
 	endPoint := aCACanvasContainer getPixelPosition: anEvent position.
-	aCACanvasContainer canvas drawLine: startPoint to: endPoint width: 1 color: Color black.
+	caWindow := aCACanvasContainer caWindow.
+	aCACanvasContainer canvas drawLine: startPoint to: endPoint width: caWindow toolStrokeWidth color: caWindow primaryColor morphicColor.
 	startPoint := nil.
 	aCACanvasContainer canvas commit.
 	aCACanvasContainer updateForm.
