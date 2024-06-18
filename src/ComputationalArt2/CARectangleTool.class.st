@@ -56,24 +56,22 @@ CARectangleTool >> drawOutlineOfRect: rect on: aCACanvasContainer withColor: col
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Halfil 6/12/2024 22:04'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 20:26'
 }
 CARectangleTool >> drawRectangleFrom: startPoint to: endPoint on: aCACanvasContainer [
-    | topLeft bottomRight width height color rect |
-    topLeft := startPoint min: endPoint.
-    bottomRight := startPoint max: endPoint.
-    width := bottomRight x - topLeft x.
-    height := bottomRight y - topLeft y.
-    color := aCACanvasContainer caWindow paneColor.
-    rect := Rectangle origin: topLeft extent: width @ height.
+	| topLeft bottomRight width height rect caWindow |
+	topLeft := startPoint min: endPoint.
+	bottomRight := startPoint max: endPoint.
+	width := bottomRight x - topLeft x.
+	height := bottomRight y - topLeft y.
+	caWindow := aCACanvasContainer caWindow.
+	rect := Rectangle origin: topLeft extent: width @ height.
 
-    (aCACanvasContainer caWindow toolFill) ifTrue: [
-        aCACanvasContainer canvas drawRect: rect color: color  "This fills the rectangle"
-    ] ifFalse: [
-        "This condition should handle the scenario when only the outline needs to be drawn."
-        "Currently, we simulate the outline by manipulating the rect dimensions if no native outline method exists."
-        self drawOutlineOfRect: rect on: aCACanvasContainer withColor: color
-    ].
+	caWindow toolFill ifTrue: [
+		aCACanvasContainer canvas drawRect: rect color: caWindow secondaryColor morphicColor.].
+
+	caWindow toolStroke ifTrue: [
+		self drawOutlineOfRect: rect on: aCACanvasContainer withColor: caWindow primaryColor morphicColor.].
 ]
 
 {

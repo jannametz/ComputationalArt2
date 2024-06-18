@@ -32,10 +32,10 @@ CAPenTool class >> toolName [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'iss 6/12/2024 17:41'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 20:16'
 }
 CAPenTool >> drawAt: aPoint on: aCACanvasContainer [
-	aCACanvasContainer canvas drawPoint: aPoint color: Color black.
+	aCACanvasContainer canvas drawPoint: aPoint color: aCACanvasContainer caWindow primaryColor morphicColor.
 
 ]
 

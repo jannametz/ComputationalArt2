@@ -19,14 +19,14 @@ CAIntegerTextMorph >> actionBlock: aBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/9/2024 01:28'
+	#'squeak_changestamp' : 'Yoan Tchorenev 6/18/2024 13:12'
 }
 CAIntegerTextMorph >> initialize [
 	super initialize.
 	self contents: '1'.
 	minValue := 0.
 	maxValue := 99999.
-	actionBlock := [:num| Transcript showln: num].
+	actionBlock := [:num| ].
 ]
 
 {
