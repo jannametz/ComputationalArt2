@@ -8,18 +8,19 @@ Class {
 		'toolStroke',
 		'toolStrokeWidth',
 		'primaryColor',
-		'secondaryColor'
+		'secondaryColor',
+		'scriptField'
 	],
 	#category : #ComputationalArt2
 }
 
 {
 	#category : #creation,
-	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:46'
+	#'squeak_changestamp' : 'KH 6/22/2024 16:31'
 }
 CAWindow class >> create [
 
-	| window canvas menuHeight textField menuRow buttonContainer canvasToolVBox simButtons simVBox |	
+	| window canvas menuHeight menuRow buttonContainer canvasToolVBox simButtons simVBox scriptField |	
 	window := CAWindow labelled: 'Computational Art'.
 	window activeTool: CAMoveTool new.
 	window minimumExtent: 700@400.
@@ -36,15 +37,17 @@ CAWindow class >> create [
 	
 	menuRow := self createMenu: window.
 	
-	textField := PluggableTextMorph on: nil text: nil accept: nil.
-	textField vResizing: #spaceFill.
-	textField hResizing: #spaceFill.
+	scriptField := PluggableTextMorph on: nil text: nil accept: nil.
+	scriptField vResizing: #spaceFill.
+	scriptField hResizing: #spaceFill.
+	scriptField wrapFlag: true.
+	window scriptField: scriptField.
 	
 	simButtons := self createSimulationsButtons: window.
 	simVBox := self createVBox.
 	simVBox addMorph: simButtons.
 	simVBox addMorph: (CAVSpace new dpiHeight: CAWindow uiSpacing).
-	simVBox addMorph: textField.
+	simVBox addMorph: scriptField.
 	simVBox minimumExtent: 200@300.
 	
 	window addMorph: simVBox fullFrame:
@@ -366,6 +369,22 @@ CAWindow >> primaryColor [
 }
 CAWindow >> primaryColor: aCARGB [
 	primaryColor := aCARGB.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KH 6/22/2024 16:08'
+}
+CAWindow >> scriptField [
+	^scriptField.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KH 6/22/2024 16:10'
+}
+CAWindow >> scriptField: aTextField [
+	scriptField := aTextField.
 ]
 
 {

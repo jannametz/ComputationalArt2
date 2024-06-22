@@ -10,6 +10,18 @@ Class {
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KH 6/22/2024 16:29'
+}
+CAStartFeature class >> executeFeature: aCAWindow [
+	| block |
+	block := Compiler evaluate: '[:canvas | ', aCAWindow scriptField text,']'.
+	block value: aCAWindow canvasContainer canvas.
+	
+	aCAWindow canvasContainer updateForm.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Yoan Tchorenev 6/6/2024 23:33'
 }
 CAStartFeature class >> featureName [
